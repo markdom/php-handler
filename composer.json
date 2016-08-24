@@ -1,0 +1,32 @@
+{
+  "name": "markdom/handler",
+  "type": "library",
+  "description": "Handler and dispatcher implementations written in PHP",
+  "keywords": [
+    "Markdom",
+    "Handler",
+    "Dispatcher"
+  ],
+  "homepage": "http://markenwerk.net/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Martin Brecht-Precht",
+      "email": "mb@markenwerk.net",
+      "homepage": "http://markenwerk.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Markdom\\Handler\\": "src/Handler",
+      "Markdom\\Dispatcher\\": "src/Dispatcher"
+    }
+  },
+  "require": {
+    "php": ">=5.3",
+    "markdom/handler-interface": "^1.0.2",
+    "markenwerk/stack-util": "~1.0",
+    "markenwerk/string-builder": "~1.0",
+    "markenwerk/json-pretty-printer": "~1.0"
+  }
+}
