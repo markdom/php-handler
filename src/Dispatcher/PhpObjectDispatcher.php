@@ -11,7 +11,7 @@ use Markdom\HandlerInterface\HandlerInterface;
 /**
  * Class PhpObjectDispatcher
  *
- * @package Markenwerk\Markdom\Dispatcher\Markdom
+ * @package Markdom\Dispatcher
  */
 class PhpObjectDispatcher implements DispatcherInterface
 {

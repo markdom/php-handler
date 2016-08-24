@@ -5,7 +5,7 @@ namespace Markdom\Dispatcher\Exception;
 /**
  * Class DispatcherException
  *
- * @package Markenwerk\Markdom\Dispatcher\Markdom\Exception
+ * @package Markdom\Dispatcher\Exception
  */
 class DispatcherException extends \Exception
 {

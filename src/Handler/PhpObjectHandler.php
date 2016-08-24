@@ -9,7 +9,7 @@ use Markenwerk\StackUtil\Stack;
 /**
  * Class PhpObjectHandler
  *
- * @package Markenwerk\Markdom\Handler\Markdom
+ * @package Markdom\Handler
  */
 class PhpObjectHandler implements HandlerInterface
 {

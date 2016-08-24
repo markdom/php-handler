@@ -7,7 +7,7 @@ use Markdom\Dispatcher\Exception\DispatcherException;
 /**
  * Class JsonDispatcher
  *
- * @package Markenwerk\Markdom\Dispatcher\Markdom
+ * @package Markdom\Dispatcher
  */
 class JsonDispatcher extends PhpObjectDispatcher
 {

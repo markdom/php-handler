@@ -7,7 +7,7 @@ use Markenwerk\JsonPrettyPrinter\JsonPrettyPrinter;
 /**
  * Class JsonHandler
  *
- * @package Markenwerk\Markdom\Handler\Markdom
+ * @package Markdom\Handler
  */
 class JsonHandler extends PhpObjectHandler
 {

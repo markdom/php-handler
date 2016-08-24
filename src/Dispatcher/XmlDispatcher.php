@@ -11,7 +11,7 @@ use Markdom\HandlerInterface\HandlerInterface;
 /**
  * Class XmlDispatcher
  *
- * @package Markenwerk\Markdom\Dispatcher\Markdom
+ * @package Markdom\Dispatcher
  */
 class XmlDispatcher implements DispatcherInterface
 {

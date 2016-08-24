@@ -10,7 +10,7 @@ use Markenwerk\StackUtil\Stack;
 /**
  * Class SimpleMarkdomEventDispatcher
  *
- * @package Markenwerk\Markdom\Dispatcher\Markdom
+ * @package Markdom\Handler\EventDispatcher
  */
 final class SimpleMarkdomEventDispatcher
 {

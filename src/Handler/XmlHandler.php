@@ -9,7 +9,7 @@ use Markenwerk\StackUtil\Stack;
 /**
  * Class XmlHandler
  *
- * @package Markenwerk\Markdom\Handler\Markdom
+ * @package Markdom\Handler
  */
 class XmlHandler implements HandlerInterface
 {

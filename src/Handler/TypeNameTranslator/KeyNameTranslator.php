@@ -5,7 +5,7 @@ namespace Markdom\Handler\TypeNameTranslator;
 /**
  * Class KeyNameTranslator
  *
- * @package Markenwerk\Markdom\Handler\Markdom\TypeNameTranslator
+ * @package Markdom\Handler\TypeNameTranslator
  */
 final class KeyNameTranslator
 {
