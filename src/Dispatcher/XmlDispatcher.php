@@ -2,9 +2,9 @@
 
 namespace Markdom\Dispatcher;
 
+use Markdom\Dispatcher\EventDispatcher\SimpleMarkdomEventDispatcher;
 use Markdom\Dispatcher\Exception\DispatcherException;
 use Markdom\DispatcherInterface\DispatcherInterface;
-use Markdom\Handler\EventDispatcher\SimpleMarkdomEventDispatcher;
 use Markdom\Handler\TypeNameTranslator\KeyNameTranslator;
 use Markdom\HandlerInterface\HandlerInterface;
 
