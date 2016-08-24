@@ -1,6 +1,6 @@
 <?php
 
-namespace Markdom\Handler\EventDispatcher;
+namespace Markdom\Dispatcher\EventDispatcher;
 
 use Markdom\Common\BlockType;
 use Markdom\Common\ContentType;
