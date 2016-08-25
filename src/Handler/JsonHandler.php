@@ -15,23 +15,47 @@ class JsonHandler extends PhpObjectHandler
 	/**
 	 * @var bool
 	 */
-	private $prettyPrint;
+	private $prettyPrint = false;
 
 	/**
 	 * @var bool
 	 */
-	private $escapeUnicode;
+	private $escapeUnicode = false;
 
 	/**
-	 * JsonMarkdomHandler constructor.
-	 *
-	 * @param bool $prettyPrint
-	 * @param bool $escapeUnicode
+	 * @return bool
 	 */
-	public function __construct($prettyPrint = false, $escapeUnicode = false)
+	public function getPrettyPrint()
+	{
+		return $this->prettyPrint;
+	}
+
+	/**
+	 * @param bool $prettyPrint
+	 * @return $this
+	 */
+	public function setPrettyPrint($prettyPrint)
 	{
 		$this->prettyPrint = $prettyPrint;
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getEscapeUnicode()
+	{
+		return $this->escapeUnicode;
+	}
+
+	/**
+	 * @param bool $escapeUnicode
+	 * @return $this
+	 */
+	public function setEscapeUnicode($escapeUnicode)
+	{
 		$this->escapeUnicode = $escapeUnicode;
+		return $this;
 	}
 
 	/**

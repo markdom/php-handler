@@ -37,16 +37,24 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @var bool
 	 */
-	private $prettyPrint;
+	private $prettyPrint = false;
 
 	/**
-	 * JsonMarkdomHandler constructor.
-	 *
-	 * @param bool $prettyPrint
+	 * @return bool
 	 */
-	public function __construct($prettyPrint = false)
+	public function getPrettyPrint()
+	{
+		return $this->prettyPrint;
+	}
+
+	/**
+	 * @param bool $prettyPrint
+	 * @return $this
+	 */
+	public function setPrettyPrint($prettyPrint)
 	{
 		$this->prettyPrint = $prettyPrint;
+		return $this;
 	}
 
 	/**
