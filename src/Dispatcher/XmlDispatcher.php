@@ -84,6 +84,9 @@ class XmlDispatcher implements DispatcherInterface
 					}
 					$this->eventDispatcher->onCodeBlock($node->textContent, $hint);
 					break;
+				case KeyNameTranslator::TYPE_COMMENT:
+					$this->eventDispatcher->onCommentBlock($node->textContent);
+					break;
 				case KeyNameTranslator::TYPE_DIVISION:
 					$this->eventDispatcher->onDivisionBlock();
 					break;
