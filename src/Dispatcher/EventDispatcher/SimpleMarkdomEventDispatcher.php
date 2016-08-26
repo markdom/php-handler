@@ -101,6 +101,17 @@ final class SimpleMarkdomEventDispatcher
 	}
 
 	/**
+	 * @param string $comment
+	 * @return void
+	 */
+	public function onCommentBlock($comment)
+	{
+		$this->onBlockBegin(BlockType::TYPE_COMMENT);
+		$this->markdomHandler->onCommentBlock($comment);
+		$this->onBlockEnd(BlockType::TYPE_COMMENT);
+	}
+
+	/**
 	 * @return void
 	 */
 	public function onDivisionBlock()

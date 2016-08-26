@@ -84,6 +84,9 @@ class PhpObjectDispatcher implements DispatcherInterface
 					$hint = isset($node->hint) ? $node->hint : null;
 					$this->eventDispatcher->onCodeBlock($node->code, $hint);
 					break;
+				case KeyNameTranslator::TYPE_COMMENT:
+					$this->eventDispatcher->onCommentBlock($node->comment);
+					break;
 				case KeyNameTranslator::TYPE_DIVISION:
 					$this->eventDispatcher->onDivisionBlock();
 					break;
