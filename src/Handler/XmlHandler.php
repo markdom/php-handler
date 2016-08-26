@@ -420,7 +420,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri, $title)
+	public function onLinkContentBegin($uri, $title = null)
 	{
 		$linkNode = $this->document->createElement(KeyNameTranslator::TYPE_LINK);
 		$uriAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_LINK_URI);
@@ -440,7 +440,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri, $title)
+	public function onLinkContentEnd($uri, $title = null)
 	{
 		$this->contentParents->pop();
 	}

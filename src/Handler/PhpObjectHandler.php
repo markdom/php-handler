@@ -385,7 +385,7 @@ class PhpObjectHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri, $title)
+	public function onLinkContentBegin($uri, $title = null)
 	{
 		$link = (object)array(
 			KeyNameTranslator::ATTRIBUTE_COMMON_TYPE => KeyNameTranslator::TYPE_LINK,
@@ -403,7 +403,7 @@ class PhpObjectHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri, $title)
+	public function onLinkContentEnd($uri, $title = null)
 	{
 		$this->contentParents->pop();
 	}
