@@ -91,6 +91,19 @@ class PhpObjectHandler implements HandlerInterface
 	}
 
 	/**
+	 * @param string $comment
+	 * @return void
+	 */
+	public function onCommentBlock($comment)
+	{
+		$parent = $this->blockParents->get();
+		$parent->blocks[] = (object)array(
+			KeyNameTranslator::ATTRIBUTE_COMMON_TYPE => KeyNameTranslator::TYPE_COMMENT,
+			KeyNameTranslator::ATTRIBUTE_COMMENT_COMMENT => $comment,
+		);
+	}
+
+	/**
 	 * @return void
 	 */
 	public function onDivisionBlock()

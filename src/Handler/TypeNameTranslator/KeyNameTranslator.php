@@ -12,6 +12,7 @@ final class KeyNameTranslator
 
 	const TYPE_DOCUMENT = 'Document';
 	const TYPE_CODE = 'Code';
+	const TYPE_COMMENT = 'Comment';
 	const TYPE_DIVISION = 'Division';
 	const TYPE_HEADING = 'Heading';
 	const TYPE_UNORDERED_LIST = 'UnorderedList';
@@ -35,6 +36,7 @@ final class KeyNameTranslator
 	const ATTRIBUTE_DOCUMENT_VERSION_MINOR = 'minor';
 	const ATTRIBUTE_CODE_CODE = 'code';
 	const ATTRIBUTE_CODE_HINT = 'hint';
+	const ATTRIBUTE_COMMENT_COMMENT = 'comment';
 	const ATTRIBUTE_HEADING_LEVEL = 'level';
 	const ATTRIBUTE_ORDERED_LIST_START_INDEX = 'startIndex';
 	const ATTRIBUTE_IMAGE_URI = 'uri';

@@ -124,6 +124,21 @@ class XmlHandler implements HandlerInterface
 	}
 
 	/**
+	 * @param string $comment
+	 * @return void
+	 */
+	public function onCommentBlock($comment)
+	{
+		$commentNode = $this->document->createElement(KeyNameTranslator::TYPE_COMMENT);
+		if (!empty($comment)) {
+			$commentNode->appendChild($this->createTextNode($comment));
+		}
+		/** @var \DOMElement $parent */
+		$parent = $this->blockParents->get();
+		$parent->appendChild($commentNode);
+	}
+
+	/**
 	 * @return void
 	 */
 	public function onDivisionBlock()
