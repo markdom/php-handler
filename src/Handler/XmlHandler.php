@@ -417,14 +417,18 @@ class XmlHandler implements HandlerInterface
 
 	/**
 	 * @param string $uri
+	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri)
+	public function onLinkContentBegin($uri, $title)
 	{
 		$linkNode = $this->document->createElement(KeyNameTranslator::TYPE_LINK);
 		$uriAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_LINK_URI);
 		$uriAttribute->appendChild($this->document->createTextNode($uri));
 		$linkNode->appendChild($uriAttribute);
+		$titleAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_LINK_TITLE);
+		$titleAttribute->appendChild($this->document->createTextNode($title));
+		$linkNode->appendChild($titleAttribute);
 		/** @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
 		$parent->appendChild($linkNode);
@@ -433,9 +437,10 @@ class XmlHandler implements HandlerInterface
 
 	/**
 	 * @param string $uri
+	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri)
+	public function onLinkContentEnd($uri, $title)
 	{
 		$this->contentParents->pop();
 	}

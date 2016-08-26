@@ -56,6 +56,11 @@ final class SimpleMarkdomEventDispatcher
 	private $linkUriStack;
 
 	/**
+	 * @var Stack
+	 */
+	private $linkTitleStack;
+
+	/**
 	 * @param HandlerInterface $markdomHandler
 	 */
 	public function __construct(HandlerInterface $markdomHandler)
@@ -67,6 +72,7 @@ final class SimpleMarkdomEventDispatcher
 		$this->orderedListStartIndexStack = new Stack();
 		$this->emphasisLevelStack = new Stack();
 		$this->linkUriStack = new Stack();
+		$this->linkTitleStack = new Stack();
 		$this->markdomHandler = $markdomHandler;
 	}
 
@@ -310,14 +316,16 @@ final class SimpleMarkdomEventDispatcher
 
 	/**
 	 * @param string $uri
+	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri)
+	public function onLinkContentBegin($uri, $title)
 	{
 		$this->onContentBegin(ContentType::TYPE_LINK);
-		$this->markdomHandler->onLinkContentBegin($uri);
+		$this->markdomHandler->onLinkContentBegin($uri, $title);
 		$this->onContentsBegin();
 		$this->linkUriStack->push($uri);
+		$this->linkTitleStack->push($title);
 	}
 
 	/**
@@ -326,7 +334,7 @@ final class SimpleMarkdomEventDispatcher
 	public function onLinkContentEnd()
 	{
 		$this->onContentsEnd();
-		$this->markdomHandler->onLinkContentEnd($this->linkUriStack->pop());
+		$this->markdomHandler->onLinkContentEnd($this->linkUriStack->pop(), $this->linkTitleStack->pop());
 		$this->onContentEnd(ContentType::TYPE_LINK);
 	}
 

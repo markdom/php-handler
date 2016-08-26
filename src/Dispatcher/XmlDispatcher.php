@@ -185,8 +185,13 @@ class XmlDispatcher implements DispatcherInterface
 					);
 					break;
 				case KeyNameTranslator::TYPE_LINK:
+					$title = null;
+					if ($node->hasAttribute(KeyNameTranslator::ATTRIBUTE_LINK_TITLE)) {
+						$title = $node->getAttribute(KeyNameTranslator::ATTRIBUTE_LINK_TITLE);
+					}
 					$this->eventDispatcher->onLinkContentBegin(
-						$node->getAttribute(KeyNameTranslator::ATTRIBUTE_LINK_URI)
+						$node->getAttribute(KeyNameTranslator::ATTRIBUTE_LINK_URI),
+						$title
 					);
 					$this->processContents($node->childNodes);
 					$this->eventDispatcher->onLinkContentEnd();

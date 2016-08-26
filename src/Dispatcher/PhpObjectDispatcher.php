@@ -175,7 +175,7 @@ class PhpObjectDispatcher implements DispatcherInterface
 					$this->eventDispatcher->onLineBreakContent($node->hard);
 					break;
 				case KeyNameTranslator::TYPE_LINK:
-					$this->eventDispatcher->onLinkContentBegin($node->uri);
+					$this->eventDispatcher->onLinkContentBegin($node->uri, $node->title);
 					$this->processContents($node->contents);
 					$this->eventDispatcher->onLinkContentEnd();
 					break;

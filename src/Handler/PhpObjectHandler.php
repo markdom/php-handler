@@ -382,13 +382,15 @@ class PhpObjectHandler implements HandlerInterface
 
 	/**
 	 * @param string $uri
+	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri)
+	public function onLinkContentBegin($uri, $title)
 	{
 		$link = (object)array(
 			KeyNameTranslator::ATTRIBUTE_COMMON_TYPE => KeyNameTranslator::TYPE_LINK,
 			KeyNameTranslator::ATTRIBUTE_LINK_URI => $uri,
+			KeyNameTranslator::ATTRIBUTE_LINK_TITLE => $title,
 			KeyNameTranslator::ATTRIBUTE_COMMON_CONTENTS => array(),
 		);
 		$parent = $this->contentParents->get();
@@ -398,9 +400,10 @@ class PhpObjectHandler implements HandlerInterface
 
 	/**
 	 * @param string $uri
+	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri)
+	public function onLinkContentEnd($uri, $title)
 	{
 		$this->contentParents->pop();
 	}

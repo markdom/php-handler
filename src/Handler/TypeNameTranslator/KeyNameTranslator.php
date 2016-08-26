@@ -45,6 +45,7 @@ final class KeyNameTranslator
 	const ATTRIBUTE_EMPHASIS_LEVEL = 'level';
 	const ATTRIBUTE_LINE_BREAK_HARD = 'hard';
 	const ATTRIBUTE_LINK_URI = 'uri';
+	const ATTRIBUTE_LINK_TITLE = 'title';
 	const ATTRIBUTE_TEXT_TEXT = 'text';
 
 }
