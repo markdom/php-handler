@@ -2,12 +2,14 @@
 
 namespace Markdom\Handler;
 
+use Markdom\HandlerInterface\HandlerInterface;
+
 /**
  * Class JsonHandler
  *
  * @package Markdom\Handler
  */
-class DebugHandler extends PhpObjectHandler
+class DebugHandler implements HandlerInterface
 {
 
 	/**
@@ -65,6 +67,15 @@ class DebugHandler extends PhpObjectHandler
 	public function onCodeBlock($code, $hint = null)
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $hint . ' ~ ' . $code;
+	}
+
+	/**
+	 * @param $comment
+	 * @return void
+	 */
+	public function onCommentBlock($comment)
+	{
+		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $comment;
 	}
 
 	/**
