@@ -10,6 +10,7 @@ use League\CommonMark\Block\Element\ListBlock;
 use League\CommonMark\Block\Element\ListItem;
 use League\CommonMark\Inline\Element\Code;
 use League\CommonMark\Inline\Element\Emphasis;
+use League\CommonMark\Inline\Element\HtmlInline;
 use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Link;
 use League\CommonMark\Inline\Element\Newline;
@@ -20,6 +21,7 @@ use Markdom\Common\BlockType;
 use Markdom\Common\ContentType;
 use Markdom\Common\EmphasisLevel;
 use Markdom\Dispatcher\Exception\DispatcherException;
+use Markdom\Dispatcher\HtmlProcessor\HtmlProcessorInterface;
 use Markdom\HandlerInterface\HandlerInterface;
 
 /**
@@ -36,6 +38,11 @@ final class MarkdomEventBridge
 	private $markdomHandler;
 
 	/**
+	 * @var HtmlProcessorInterface
+	 */
+	private $htmlProcessor;
+
+	/**
 	 * @var Node
 	 */
 	private $recentInlineNode;
@@ -44,10 +51,12 @@ final class MarkdomEventBridge
 	 * MarkdomHandlerEventDispatcher constructor.
 	 *
 	 * @param HandlerInterface $commonmarkHandler
+	 * @param HtmlProcessorInterface $htmlProcessor
 	 */
-	public function __construct(HandlerInterface $commonmarkHandler)
+	public function __construct(HandlerInterface $commonmarkHandler, HtmlProcessorInterface $htmlProcessor)
 	{
 		$this->markdomHandler = $commonmarkHandler;
+		$this->htmlProcessor = $htmlProcessor;
 	}
 
 	/**
@@ -203,7 +212,7 @@ final class MarkdomEventBridge
 					$comment = trim($comment);
 					$this->markdomHandler->onCommentBlock($comment);
 				} else {
-					// TODO: Handle HTML block
+					$this->htmlProcessor->handleHtmlBlock($node, $this->markdomHandler);
 				}
 				break;
 			case DocumentProcessor::BLOCK_NODE_IMAGE:
@@ -303,8 +312,6 @@ final class MarkdomEventBridge
 				/** @var HtmlBlock $node */
 				if ($node->getType() == $node::TYPE_2_COMMENT) {
 					$this->dispatchBlockEndEvents($node, BlockType::TYPE_COMMENT);
-				} else {
-					// TODO: Handle HTML block
 				}
 				break;
 			case DocumentProcessor::BLOCK_NODE_IMAGE:
@@ -375,7 +382,8 @@ final class MarkdomEventBridge
 				$this->markdomHandler->onCodeContent($node->getContent());
 				break;
 			case DocumentProcessor::INLINE_NODE_HTML_INLINE:
-				// TODO: Handle inline HTML
+				/** @var HtmlInline $node */
+				$this->htmlProcessor->handleInlineHtml($node, $this->markdomHandler);
 				break;
 			case DocumentProcessor::INLINE_NODE_NEWLINE:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_LINE_BREAK);
@@ -408,7 +416,6 @@ final class MarkdomEventBridge
 				$this->dispatchContentEndEvents($this->recentInlineNode, ContentType::TYPE_CODE);
 				break;
 			case DocumentProcessor::INLINE_NODE_HTML_INLINE:
-				// TODO: Handle inline HTML
 				break;
 			case DocumentProcessor::INLINE_NODE_NEWLINE:
 				$this->dispatchContentEndEvents($this->recentInlineNode, ContentType::TYPE_LINE_BREAK);

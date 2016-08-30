@@ -15,39 +15,31 @@
             ]
         },
         {
+            "type": "Heading",
+            "level": 3,
+            "contents": [
+                {
+                    "type": "Text",
+                    "text": "HTML Block"
+                }
+            ]
+        },
+        {
             "type": "Paragraph",
             "contents": [
                 {
                     "type": "Text",
-                    "text": "this "
-                },
-                {
-                    "type": "Emphasis",
-                    "level": 1,
-                    "contents": [
-                        {
-                            "type": "Text",
-                            "text": "is"
-                        }
-                    ]
-                },
+                    "text": "kjsdfkjhasd <p>Test<\/p> ksajdhfgkasjhfgd"
+                }
+            ]
+        },
+        {
+            "type": "Heading",
+            "level": 3,
+            "contents": [
                 {
                     "type": "Text",
-                    "text": " a not so simple "
-                },
-                {
-                    "type": "Emphasis",
-                    "level": 2,
-                    "contents": [
-                        {
-                            "type": "Text",
-                            "text": "paragraph"
-                        }
-                    ]
-                },
-                {
-                    "type": "Text",
-                    "text": " with different kinds of "
+                    "text": "blocks in a quote block"
                 }
             ]
         }

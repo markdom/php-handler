@@ -4,6 +4,8 @@ namespace Markdom\Dispatcher\CommonmarkUtil;
 
 use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocumentProcessorInterface;
+use Markdom\Dispatcher\HtmlProcessor\HtmlProcessorInterface;
+use Markdom\Dispatcher\HtmlProcessor\HtmlTextProcessor;
 use Markdom\HandlerInterface\HandlerInterface;
 use Markenwerk\StackUtil\Stack;
 
@@ -43,6 +45,11 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	private $markdomHandler;
 
 	/**
+	 * @var HtmlProcessorInterface
+	 */
+	private $htmlProcessor;
+
+	/**
 	 * @var Stack
 	 */
 	private $imageStack;
@@ -51,11 +58,16 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	 * DocumentProcessor constructor.
 	 *
 	 * @param HandlerInterface $markdomHandler
+	 * @param HtmlProcessorInterface $htmlProcessor
 	 */
-	public function __construct(HandlerInterface $markdomHandler)
+	public function __construct(HandlerInterface $markdomHandler, HtmlProcessorInterface $htmlProcessor = null)
 	{
 		$this->markdomHandler = $markdomHandler;
 		$this->imageStack = new Stack();
+		if (is_null($htmlProcessor)) {
+			$htmlProcessor = new HtmlTextProcessor();
+		}
+		$this->htmlProcessor = $htmlProcessor;
 	}
 
 	/**
@@ -65,7 +77,7 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	 */
 	public function processDocument(Document $document)
 	{
-		$markdomHandlerEventDispatcher = new MarkdomEventBridge($this->markdomHandler);
+		$markdomHandlerEventDispatcher = new MarkdomEventBridge($this->markdomHandler, $this->htmlProcessor);
 		$walker = $document->walker();
 		while ($event = $walker->next()) {
 			$node = $event->getNode();

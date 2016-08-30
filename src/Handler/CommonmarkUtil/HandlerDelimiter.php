@@ -7,7 +7,7 @@ namespace Markdom\Handler\CommonmarkUtil;
  *
  * @package Markdom\Handler\CommonmarkUtil
  */
-class HandlerDelimiter
+final class HandlerDelimiter
 {
 
 	/**

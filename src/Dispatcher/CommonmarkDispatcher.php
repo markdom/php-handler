@@ -6,6 +6,7 @@ use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
 use Markdom\Dispatcher\CommonmarkUtil\DocumentProcessor;
 use Markdom\Dispatcher\Exception\DispatcherException;
+use Markdom\Dispatcher\HtmlProcessor\HtmlProcessorInterface;
 use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\HandlerInterface\HandlerInterface;
 
@@ -23,6 +24,11 @@ class CommonmarkDispatcher implements DispatcherInterface
 	private $markdomHandler;
 
 	/**
+	 * @var HtmlProcessorInterface
+	 */
+	private $htmlProcessor = null;
+
+	/**
 	 * Parser constructor.
 	 *
 	 * @param HandlerInterface $commonmarkHandler
@@ -30,6 +36,24 @@ class CommonmarkDispatcher implements DispatcherInterface
 	public function __construct(HandlerInterface $commonmarkHandler)
 	{
 		$this->markdomHandler = $commonmarkHandler;
+	}
+
+	/**
+	 * @return HtmlProcessorInterface
+	 */
+	public function getHtmlProcessor()
+	{
+		return $this->htmlProcessor;
+	}
+
+	/**
+	 * @param HtmlProcessorInterface $htmlProcessor
+	 * @return $this
+	 */
+	public function setHtmlProcessor($htmlProcessor)
+	{
+		$this->htmlProcessor = $htmlProcessor;
+		return $this;
 	}
 
 	/**
@@ -55,7 +79,7 @@ class CommonmarkDispatcher implements DispatcherInterface
 	public function process($source)
 	{
 		$commonMarkEnvironment = Environment::createCommonMarkEnvironment();
-		$commonMarkEnvironment->addDocumentProcessor(new DocumentProcessor($this->markdomHandler));
+		$commonMarkEnvironment->addDocumentProcessor(new DocumentProcessor($this->markdomHandler, $this->htmlProcessor));
 		$docParser = new DocParser($commonMarkEnvironment);
 		$docParser->parse($source);
 		return $this;
