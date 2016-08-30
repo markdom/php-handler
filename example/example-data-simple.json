@@ -1,0 +1,55 @@
+{
+    "version": {
+        "major": 1,
+        "minor": 0
+    },
+    "blocks": [
+        {
+            "type": "Heading",
+            "level": 1,
+            "contents": [
+                {
+                    "type": "Text",
+                    "text": "some markdown"
+                }
+            ]
+        },
+        {
+            "type": "Paragraph",
+            "contents": [
+                {
+                    "type": "Text",
+                    "text": "this "
+                },
+                {
+                    "type": "Emphasis",
+                    "level": 1,
+                    "contents": [
+                        {
+                            "type": "Text",
+                            "text": "is"
+                        }
+                    ]
+                },
+                {
+                    "type": "Text",
+                    "text": " a not so simple "
+                },
+                {
+                    "type": "Emphasis",
+                    "level": 2,
+                    "contents": [
+                        {
+                            "type": "Text",
+                            "text": "paragraph"
+                        }
+                    ]
+                },
+                {
+                    "type": "Text",
+                    "text": " with different kinds of "
+                }
+            ]
+        }
+    ]
+}

@@ -9,5 +9,5 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 $handler = new DebugHandler();
 $dispatcher = new JsonDispatcher($handler);
-$dispatcher->parseFile(__DIR__ . '/example-data.json');
+$dispatcher->processFile(__DIR__ . '/example-data.json');
 fwrite(STDOUT, $handler->getResult());

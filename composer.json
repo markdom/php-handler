@@ -24,9 +24,10 @@
   },
   "require": {
     "php": ">=5.3",
-    "markdom/handler-interface": "^1.0.5",
+    "markdom/handler-interface": "^1.0.8",
     "markenwerk/stack-util": "~1.0",
-    "markenwerk/string-builder": "~1.0",
-    "markenwerk/json-pretty-printer": "~1.0"
+    "markenwerk/string-builder": "^1.0.4",
+    "markenwerk/json-pretty-printer": "~1.0",
+    "league/commonmark": "^0.13"
   }
 }

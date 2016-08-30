@@ -2,6 +2,7 @@
 
 namespace Markdom\Handler\HtmlTagBuilder;
 
+use Markdom\Common\HeadingLevel;
 use Markdom\Handler\Exception\HandlerException;
 
 /**
@@ -33,33 +34,33 @@ class HtmlTagBuilder implements TagBuilderInterface
 				return '<hr' . $this->getAttributeString($attributes) . '>';
 			case self::TYPE_HEADING_BEGIN:
 				switch ($variant) {
-					case self::VARIANT_HEADING_2:
+					case HeadingLevel::LEVEL_2:
 						return '<h2' . $this->getAttributeString($attributes) . '>';
-					case self::VARIANT_HEADING_3:
+					case HeadingLevel::LEVEL_3:
 						return '<h3' . $this->getAttributeString($attributes) . '>';
-					case self::VARIANT_HEADING_4:
+					case HeadingLevel::LEVEL_4:
 						return '<h4' . $this->getAttributeString($attributes) . '>';
-					case self::VARIANT_HEADING_5:
+					case HeadingLevel::LEVEL_5:
 						return '<h5' . $this->getAttributeString($attributes) . '>';
-					case self::VARIANT_HEADING_6:
+					case HeadingLevel::LEVEL_6:
 						return '<h6' . $this->getAttributeString($attributes) . '>';
-					case self::VARIANT_HEADING_1:
+					case HeadingLevel::LEVEL_1:
 					default:
 						return '<h1' . $this->getAttributeString($attributes) . '>';
 				}
 			case self::TYPE_HEADING_END:
 				switch ($variant) {
-					case self::VARIANT_HEADING_2:
+					case HeadingLevel::LEVEL_2:
 						return '</h2>';
-					case self::VARIANT_HEADING_3:
+					case HeadingLevel::LEVEL_3:
 						return '</h3>';
-					case self::VARIANT_HEADING_4:
+					case HeadingLevel::LEVEL_4:
 						return '</h4>';
-					case self::VARIANT_HEADING_5:
+					case HeadingLevel::LEVEL_5:
 						return '</h5>';
-					case self::VARIANT_HEADING_6:
+					case HeadingLevel::LEVEL_6:
 						return '</h6>';
-					case self::VARIANT_HEADING_1:
+					case HeadingLevel::LEVEL_1:
 					default:
 						return '</h1>';
 				}

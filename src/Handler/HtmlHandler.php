@@ -2,6 +2,7 @@
 
 namespace Markdom\Handler;
 
+use Markdom\Common\EmphasisLevel;
 use Markdom\Handler\HtmlTagBuilder\HtmlTagBuilder;
 use Markdom\Handler\HtmlTagBuilder\TagBuilderInterface;
 use Markdom\HandlerInterface\HandlerInterface;
@@ -186,33 +187,12 @@ class HtmlHandler implements HandlerInterface
 	 */
 	public function onHeadingBlockBegin($level)
 	{
-		switch ($level) {
-			case 2:
-				$variant = TagBuilderInterface::VARIANT_HEADING_2;
-				break;
-			case 3:
-				$variant = TagBuilderInterface::VARIANT_HEADING_3;
-				break;
-			case 4:
-				$variant = TagBuilderInterface::VARIANT_HEADING_4;
-				break;
-			case 5:
-				$variant = TagBuilderInterface::VARIANT_HEADING_5;
-				break;
-			case 6:
-				$variant = TagBuilderInterface::VARIANT_HEADING_6;
-				break;
-			case 1:
-			default:
-				$variant = TagBuilderInterface::VARIANT_HEADING_1;
-				break;
-		}
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
 				TagBuilderInterface::TYPE_HEADING_BEGIN,
 				null,
 				array(),
-				$variant
+				$level
 			)
 		);
 	}
@@ -223,33 +203,12 @@ class HtmlHandler implements HandlerInterface
 	 */
 	public function onHeadingBlockEnd($level)
 	{
-		switch ($level) {
-			case 2:
-				$variant = TagBuilderInterface::VARIANT_HEADING_2;
-				break;
-			case 3:
-				$variant = TagBuilderInterface::VARIANT_HEADING_3;
-				break;
-			case 4:
-				$variant = TagBuilderInterface::VARIANT_HEADING_4;
-				break;
-			case 5:
-				$variant = TagBuilderInterface::VARIANT_HEADING_5;
-				break;
-			case 6:
-				$variant = TagBuilderInterface::VARIANT_HEADING_6;
-				break;
-			case 1:
-			default:
-				$variant = TagBuilderInterface::VARIANT_HEADING_1;
-				break;
-		}
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
 				TagBuilderInterface::TYPE_HEADING_END,
 				null,
 				array(),
-				$variant
+				$level
 			)
 		);
 	}
@@ -427,7 +386,7 @@ class HtmlHandler implements HandlerInterface
 	public function onEmphasisContentBegin($level)
 	{
 		$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_1_BEGIN;
-		if ($level == TagBuilderInterface::VARIANT_EMPHASIS_2) {
+		if ($level == EmphasisLevel::LEVEL_2) {
 			$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_2_BEGIN;
 		}
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag($tagType));
@@ -440,7 +399,7 @@ class HtmlHandler implements HandlerInterface
 	public function onEmphasisContentEnd($level)
 	{
 		$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_1_END;
-		if ($level == TagBuilderInterface::VARIANT_EMPHASIS_2) {
+		if ($level == EmphasisLevel::LEVEL_2) {
 			$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_2_END;
 		}
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag($tagType));

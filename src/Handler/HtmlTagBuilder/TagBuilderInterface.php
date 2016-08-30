@@ -35,16 +35,6 @@ interface TagBuilderInterface
 	const TYPE_LINK_BEGIN = 'LINK_BEGIN';
 	const TYPE_LINK_END = 'LINK_END';
 
-	const VARIANT_HEADING_1 = 'HEADING_1';
-	const VARIANT_HEADING_2 = 'HEADING_2';
-	const VARIANT_HEADING_3 = 'HEADING_3';
-	const VARIANT_HEADING_4 = 'HEADING_4';
-	const VARIANT_HEADING_5 = 'HEADING_5';
-	const VARIANT_HEADING_6 = 'HEADING_6';
-
-	const VARIANT_EMPHASIS_1 = 'EMPHASIS_1';
-	const VARIANT_EMPHASIS_2 = 'EMPHASIS_2';
-
 	/**
 	 * @param string $type
 	 * @param string $value

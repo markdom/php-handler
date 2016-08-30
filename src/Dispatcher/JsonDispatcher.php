@@ -17,7 +17,7 @@ class JsonDispatcher extends PhpObjectDispatcher
 	 * @return $this
 	 * @throws DispatcherException
 	 */
-	public function parseFile($sourceFile)
+	public function processFile($sourceFile)
 	{
 		if (!file_exists($sourceFile)) {
 			throw new DispatcherException('Source file not found');

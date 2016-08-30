@@ -36,6 +36,10 @@
         },
         {
             "type": "Comment",
+            "comment": "Etiam porta sem malesuada magna mollis euismod.\nwich is multiline"
+        },
+        {
+            "type": "Comment",
             "comment": "Etiam porta sem malesuada magna mollis euismod."
         },
         {

@@ -11,5 +11,5 @@ $handler = new XmlHandler();
 $handler
 	->setPrettyPrint(true);
 $dispatcher = new JsonDispatcher($handler);
-$dispatcher->parseFile(__DIR__ . '/example-data.json');
+$dispatcher->processFile(__DIR__ . '/example-data.json');
 fwrite(STDOUT, $handler->getResult()->saveXML());
