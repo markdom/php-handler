@@ -213,6 +213,9 @@ final class MarkdomEventBridge
 					$this->markdomHandler->onCommentBlock($comment);
 				} else {
 					$this->htmlProcessor->handleHtmlBlock($node, $this->markdomHandler);
+					if(!is_null($node->next())){
+						$this->markdomHandler->onNextBlock();
+					}
 				}
 				break;
 			case DocumentProcessor::BLOCK_NODE_IMAGE:

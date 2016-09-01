@@ -33,7 +33,6 @@ class HtmlTextProcessor implements HtmlProcessorInterface
 		$markdomHandler->onContentsEnd();
 		$markdomHandler->onParagraphBlockEnd();
 		$markdomHandler->onBlockEnd(BlockType::TYPE_PARAGRAPH);
-		// FIXME: Why the hack does the CommonmarkDispatcher not add a blank line after this paragraph?!
 	}
 
 	/**
