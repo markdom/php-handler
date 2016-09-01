@@ -4,7 +4,6 @@ namespace Markdom\Dispatcher;
 
 use Markdom\Dispatcher\EventDispatcher\SimpleMarkdomEventDispatcher;
 use Markdom\Dispatcher\Exception\DispatcherException;
-use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\Handler\TypeNameTranslator\KeyNameTranslator;
 use Markdom\HandlerInterface\HandlerInterface;
 
@@ -13,7 +12,7 @@ use Markdom\HandlerInterface\HandlerInterface;
  *
  * @package Markdom\Dispatcher
  */
-class PhpObjectDispatcher implements DispatcherInterface
+class PhpObjectDispatcher extends AbstractDispatcher
 {
 
 	/**
@@ -49,13 +48,13 @@ class PhpObjectDispatcher implements DispatcherInterface
 		if (!is_object($source)) {
 			throw new DispatcherException('Markdom invalid: root node is no object.');
 		}
-		if(!isset($source->version) || !is_object($source->version)){
+		if (!isset($source->version) || !is_object($source->version)) {
 			throw new DispatcherException('Markdom invalid: no document version specified.');
 		}
-		if(!isset($source->version->major) || !isset($source->version->minor)){
+		if (!isset($source->version->major) || !isset($source->version->minor)) {
 			throw new DispatcherException('Markdom invalid: no document valid version specified.');
 		}
-		if((int)$source->version->major !== 1 || (int)$source->version->minor !== 0){
+		if ((int)$source->version->major !== 1 || (int)$source->version->minor !== 0) {
 			throw new DispatcherException('Markdom invalid: version mismatch Expected version 1.0.');
 		}
 		$this->eventDispatcher->onDocumentBegin();
@@ -85,7 +84,9 @@ class PhpObjectDispatcher implements DispatcherInterface
 					$this->eventDispatcher->onCodeBlock($node->code, $hint);
 					break;
 				case KeyNameTranslator::TYPE_COMMENT:
-					$this->eventDispatcher->onCommentBlock($node->comment);
+					if ($this->getDispatchCommentBlocks()) {
+						$this->eventDispatcher->onCommentBlock($node->comment);
+					}
 					break;
 				case KeyNameTranslator::TYPE_DIVISION:
 					$this->eventDispatcher->onDivisionBlock();

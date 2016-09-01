@@ -7,7 +7,6 @@ use League\CommonMark\Environment;
 use Markdom\Dispatcher\CommonmarkUtil\DocumentProcessor;
 use Markdom\Dispatcher\Exception\DispatcherException;
 use Markdom\Dispatcher\HtmlProcessor\HtmlProcessorInterface;
-use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\HandlerInterface\HandlerInterface;
 
 /**
@@ -15,7 +14,7 @@ use Markdom\HandlerInterface\HandlerInterface;
  *
  * @package Markdom\Dispatcher
  */
-class CommonmarkDispatcher implements DispatcherInterface
+class CommonmarkDispatcher extends AbstractDispatcher
 {
 
 	/**
@@ -79,7 +78,9 @@ class CommonmarkDispatcher implements DispatcherInterface
 	public function process($source)
 	{
 		$commonMarkEnvironment = Environment::createCommonMarkEnvironment();
-		$commonMarkEnvironment->addDocumentProcessor(new DocumentProcessor($this->markdomHandler, $this->htmlProcessor));
+		$commonMarkEnvironment->addDocumentProcessor(
+			new DocumentProcessor($this->markdomHandler, $this->getDispatchCommentBlocks(), $this->htmlProcessor)
+		);
 		$docParser = new DocParser($commonMarkEnvironment);
 		$docParser->parse($source);
 		return $this;

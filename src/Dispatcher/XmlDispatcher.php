@@ -4,7 +4,6 @@ namespace Markdom\Dispatcher;
 
 use Markdom\Dispatcher\EventDispatcher\SimpleMarkdomEventDispatcher;
 use Markdom\Dispatcher\Exception\DispatcherException;
-use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\Handler\TypeNameTranslator\KeyNameTranslator;
 use Markdom\HandlerInterface\HandlerInterface;
 
@@ -13,7 +12,7 @@ use Markdom\HandlerInterface\HandlerInterface;
  *
  * @package Markdom\Dispatcher
  */
-class XmlDispatcher implements DispatcherInterface
+class XmlDispatcher extends AbstractDispatcher
 {
 
 	/**
@@ -85,7 +84,9 @@ class XmlDispatcher implements DispatcherInterface
 					$this->eventDispatcher->onCodeBlock($node->textContent, $hint);
 					break;
 				case KeyNameTranslator::TYPE_COMMENT:
-					$this->eventDispatcher->onCommentBlock($node->textContent);
+					if ($this->getDispatchCommentBlocks()) {
+						$this->eventDispatcher->onCommentBlock($node->textContent);
+					}
 					break;
 				case KeyNameTranslator::TYPE_DIVISION:
 					$this->eventDispatcher->onDivisionBlock();
