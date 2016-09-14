@@ -20,6 +20,11 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @var bool
 	 */
+	private $handleComments = true;
+
+	/**
+	 * @var bool
+	 */
 	private $blocksAreEmpty;
 
 	/**
@@ -103,6 +108,24 @@ class CommonmarkHandler implements HandlerInterface
 		$this->delimiters = new Stack();
 		$this->escapeCharacterList = str_split($this->escapeCharacters);
 		$this->escapeLineStartCharacterList = str_split($this->escapeLineStartCharacters);
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getHandleComments()
+	{
+		return $this->handleComments;
+	}
+
+	/**
+	 * @param boolean $handleComments
+	 * @return $this
+	 */
+	public function setHandleComments($handleComments)
+	{
+		$this->handleComments = $handleComments;
+		return $this;
 	}
 
 	/**
@@ -205,6 +228,9 @@ class CommonmarkHandler implements HandlerInterface
 	 */
 	public function onCommentBlock($comment)
 	{
+		if (!$this->getHandleComments()) {
+			return;
+		}
 		$tokens = explode(PHP_EOL, $comment);
 		if (count($tokens) > 1) {
 			$this

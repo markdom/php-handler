@@ -43,11 +43,6 @@ final class MarkdomEventBridge
 	private $htmlProcessor;
 
 	/**
-	 * @var bool
-	 */
-	private $dispatchCommentBlocks;
-
-	/**
 	 * @var Node
 	 */
 	private $recentInlineNode;
@@ -56,17 +51,14 @@ final class MarkdomEventBridge
 	 * MarkdomHandlerEventDispatcher constructor.
 	 *
 	 * @param HandlerInterface $commonmarkHandler
-	 * @param bool $dispatchCommentBlocks
 	 * @param HtmlProcessorInterface $htmlProcessor
 	 */
 	public function __construct(
 		HandlerInterface $commonmarkHandler,
-		$dispatchCommentBlocks,
 		HtmlProcessorInterface $htmlProcessor
 	) {
 		$this->markdomHandler = $commonmarkHandler;
 		$this->htmlProcessor = $htmlProcessor;
-		$this->dispatchCommentBlocks = $dispatchCommentBlocks;
 	}
 
 	/**
@@ -210,7 +202,7 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_HTML_BLOCK:
 				/** @var HtmlBlock $node */
-				if ($node->getType() == $node::TYPE_2_COMMENT && $this->dispatchCommentBlocks) {
+				if ($node->getType() == $node::TYPE_2_COMMENT) {
 					$this->dispatchBlockBeginEvents(BlockType::TYPE_COMMENT);
 					$comment = $node->getStringContent();
 					if (mb_strpos($comment, '<!--') === 0) {

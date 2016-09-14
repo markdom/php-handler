@@ -15,6 +15,11 @@ class PhpObjectHandler implements HandlerInterface
 {
 
 	/**
+	 * @var bool
+	 */
+	private $handleComments = true;
+
+	/**
 	 * @var \StdClass
 	 */
 	private $document;
@@ -33,6 +38,24 @@ class PhpObjectHandler implements HandlerInterface
 	 * @var Stack
 	 */
 	private $contentParents;
+
+	/**
+	 * @return boolean
+	 */
+	public function getHandleComments()
+	{
+		return $this->handleComments;
+	}
+
+	/**
+	 * @param boolean $handleComments
+	 * @return $this
+	 */
+	public function setHandleComments($handleComments)
+	{
+		$this->handleComments = $handleComments;
+		return $this;
+	}
 
 	/**
 	 * @return void
@@ -96,6 +119,9 @@ class PhpObjectHandler implements HandlerInterface
 	 */
 	public function onCommentBlock($comment)
 	{
+		if (!$this->getHandleComments()) {
+			return;
+		}
 		$parent = $this->blockParents->get();
 		$parent->blocks[] = (object)array(
 			KeyNameTranslator::ATTRIBUTE_COMMON_TYPE => KeyNameTranslator::TYPE_COMMENT,

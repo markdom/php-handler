@@ -5,8 +5,8 @@ namespace Markdom\Dispatcher;
 use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
 use Markdom\Dispatcher\CommonmarkUtil\DocumentProcessor;
-use Markdom\Dispatcher\Exception\DispatcherException;
 use Markdom\Dispatcher\HtmlProcessor\HtmlProcessorInterface;
+use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\HandlerInterface\HandlerInterface;
 
 /**
@@ -14,13 +14,8 @@ use Markdom\HandlerInterface\HandlerInterface;
  *
  * @package Markdom\Dispatcher
  */
-class CommonmarkDispatcher extends AbstractDispatcher
+class CommonmarkDispatcher implements DispatcherInterface
 {
-
-	/**
-	 * @var HandlerInterface
-	 */
-	private $markdomHandler;
 
 	/**
 	 * @var HtmlProcessorInterface
@@ -28,13 +23,18 @@ class CommonmarkDispatcher extends AbstractDispatcher
 	private $htmlProcessor = null;
 
 	/**
-	 * Parser constructor.
-	 *
-	 * @param HandlerInterface $commonmarkHandler
+	 * @var string
 	 */
-	public function __construct(HandlerInterface $commonmarkHandler)
+	private $commonmarkString;
+
+	/**
+	 * CommonmarkDispatcher constructor.
+	 *
+	 * @param string $commonmarkString
+	 */
+	public function __construct($commonmarkString)
 	{
-		$this->markdomHandler = $commonmarkHandler;
+		$this->commonmarkString = $commonmarkString;
 	}
 
 	/**
@@ -56,34 +56,26 @@ class CommonmarkDispatcher extends AbstractDispatcher
 	}
 
 	/**
-	 * @param string $sourceFile
-	 * @return $this
-	 * @throws DispatcherException
+	 * @return bool
 	 */
-	public function processFile($sourceFile)
+	public function isReusable()
 	{
-		if (!file_exists($sourceFile)) {
-			throw new DispatcherException('Source file not found');
-		}
-		if (!is_readable($sourceFile)) {
-			throw new DispatcherException('Source file not readable');
-		}
-		return $this->process(file_get_contents($sourceFile));
+		return true;
 	}
 
 	/**
-	 * @param string $source
-	 * @return $this
+	 * @param HandlerInterface $markdomHandler
+	 * @return mixed
 	 */
-	public function process($source)
+	public function dispatchTo(HandlerInterface $markdomHandler)
 	{
 		$commonMarkEnvironment = Environment::createCommonMarkEnvironment();
 		$commonMarkEnvironment->addDocumentProcessor(
-			new DocumentProcessor($this->markdomHandler, $this->getDispatchCommentBlocks(), $this->htmlProcessor)
+			new DocumentProcessor($markdomHandler, $this->htmlProcessor)
 		);
 		$docParser = new DocParser($commonMarkEnvironment);
-		$docParser->parse($source);
-		return $this;
+		$docParser->parse($this->commonmarkString);
+		return $markdomHandler->getResult();
 	}
 
 }

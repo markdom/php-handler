@@ -2,8 +2,6 @@
 
 namespace Markdom\Dispatcher;
 
-use Markdom\Dispatcher\Exception\DispatcherException;
-
 /**
  * Class JsonDispatcher
  *
@@ -13,31 +11,14 @@ class JsonDispatcher extends PhpObjectDispatcher
 {
 
 	/**
-	 * @param string $sourceFile
-	 * @return $this
-	 * @throws DispatcherException
+	 * JsonDispatcher constructor.
+	 *
+	 * @param string $jsonString
 	 */
-	public function processFile($sourceFile)
+	public function __construct($jsonString)
 	{
-		if (!file_exists($sourceFile)) {
-			throw new DispatcherException('Source file not found');
-		}
-		if (!is_readable($sourceFile)) {
-			throw new DispatcherException('Source file not readable');
-		}
-		return $this->process(file_get_contents($sourceFile));
-	}
-
-	/**
-	 * @param string $source
-	 * @return $this
-	 * @throws DispatcherException
-	 */
-	public function process($source)
-	{
-		$markdomObject = json_decode($source);
-		parent::process($markdomObject);
-		return $this;
+		$markdomObject = json_decode($jsonString);
+		parent::__construct($markdomObject);
 	}
 
 }

@@ -50,11 +50,6 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	private $htmlProcessor;
 
 	/**
-	 * @var bool
-	 */
-	private $dispatchCommentBlocks;
-
-	/**
 	 * @var Stack
 	 */
 	private $imageStack;
@@ -63,16 +58,13 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	 * DocumentProcessor constructor.
 	 *
 	 * @param HandlerInterface $markdomHandler
-	 * @param bool $dispatchCommentBlocks
 	 * @param HtmlProcessorInterface $htmlProcessor
 	 */
 	public function __construct(
 		HandlerInterface $markdomHandler,
-		$dispatchCommentBlocks,
 		HtmlProcessorInterface $htmlProcessor = null
 	) {
 		$this->markdomHandler = $markdomHandler;
-		$this->dispatchCommentBlocks = $dispatchCommentBlocks;
 		if (is_null($htmlProcessor)) {
 			$htmlProcessor = new HtmlTextProcessor();
 		}
@@ -82,14 +74,12 @@ final class DocumentProcessor implements DocumentProcessorInterface
 
 	/**
 	 * @param Document $document
-	 *
 	 * @return void
 	 */
 	public function processDocument(Document $document)
 	{
 		$markdomHandlerEventDispatcher = new MarkdomEventBridge(
 			$this->markdomHandler,
-			$this->dispatchCommentBlocks,
 			$this->htmlProcessor
 		);
 		$walker = $document->walker();

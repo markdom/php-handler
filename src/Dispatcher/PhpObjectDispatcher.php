@@ -4,6 +4,7 @@ namespace Markdom\Dispatcher;
 
 use Markdom\Dispatcher\EventDispatcher\SimpleMarkdomEventDispatcher;
 use Markdom\Dispatcher\Exception\DispatcherException;
+use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\Handler\TypeNameTranslator\KeyNameTranslator;
 use Markdom\HandlerInterface\HandlerInterface;
 
@@ -12,13 +13,8 @@ use Markdom\HandlerInterface\HandlerInterface;
  *
  * @package Markdom\Dispatcher
  */
-class PhpObjectDispatcher extends AbstractDispatcher
+class PhpObjectDispatcher implements DispatcherInterface
 {
-
-	/**
-	 * @var HandlerInterface
-	 */
-	private $markdomHandler;
 
 	/**
 	 * @var SimpleMarkdomEventDispatcher
@@ -26,41 +22,54 @@ class PhpObjectDispatcher extends AbstractDispatcher
 	private $eventDispatcher;
 
 	/**
-	 * Parser constructor.
-	 *
-	 * @param HandlerInterface $markdomHandler
+	 * @var \stdClass
 	 */
-	public function __construct(HandlerInterface $markdomHandler)
+	private $document;
+
+	/**
+	 * PhpObjectDispatcher constructor.
+	 *
+	 * @param \stdClass $document
+	 */
+	public function __construct($document)
 	{
-		$this->markdomHandler = $markdomHandler;
+		$this->document = $document;
 	}
 
 	/**
-	 * @param \stdClass $source
-	 * @return $this
+	 * @param HandlerInterface $markdomHandler
+	 * @return mixed
 	 * @throws DispatcherException
 	 */
-	public function process($source)
+	public function dispatchTo(HandlerInterface $markdomHandler)
 	{
 		// Init event dispatcher
-		$this->eventDispatcher = new SimpleMarkdomEventDispatcher($this->markdomHandler);
+		$this->eventDispatcher = new SimpleMarkdomEventDispatcher($markdomHandler);
 		// Walk through the document
-		if (!is_object($source)) {
+		if (!is_object($this->document)) {
 			throw new DispatcherException('Markdom invalid: root node is no object.');
 		}
-		if (!isset($source->version) || !is_object($source->version)) {
+		if (!isset($this->document->version) || !is_object($this->document->version)) {
 			throw new DispatcherException('Markdom invalid: no document version specified.');
 		}
-		if (!isset($source->version->major) || !isset($source->version->minor)) {
+		if (!isset($this->document->version->major) || !isset($this->document->version->minor)) {
 			throw new DispatcherException('Markdom invalid: no document valid version specified.');
 		}
-		if ((int)$source->version->major !== 1 || (int)$source->version->minor !== 0) {
+		if ((int)$this->document->version->major !== 1 || (int)$this->document->version->minor !== 0) {
 			throw new DispatcherException('Markdom invalid: version mismatch Expected version 1.0.');
 		}
 		$this->eventDispatcher->onDocumentBegin();
-		$this->processBlocks($source->blocks);
+		$this->processBlocks($this->document->blocks);
 		$this->eventDispatcher->onDocumentEnd();
-		return $this;
+		return $markdomHandler->getResult();
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isReusable()
+	{
+		return true;
 	}
 
 	/**
@@ -84,9 +93,7 @@ class PhpObjectDispatcher extends AbstractDispatcher
 					$this->eventDispatcher->onCodeBlock($node->code, $hint);
 					break;
 				case KeyNameTranslator::TYPE_COMMENT:
-					if ($this->getDispatchCommentBlocks()) {
-						$this->eventDispatcher->onCommentBlock($node->comment);
-					}
+					$this->eventDispatcher->onCommentBlock($node->comment);
 					break;
 				case KeyNameTranslator::TYPE_DIVISION:
 					$this->eventDispatcher->onDivisionBlock();

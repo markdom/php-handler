@@ -13,6 +13,11 @@ class DebugHandler implements HandlerInterface
 {
 
 	/**
+	 * @var bool
+	 */
+	private $handleComments = true;
+
+	/**
 	 * @var int
 	 */
 	private $indentationLevel = 0;
@@ -21,6 +26,24 @@ class DebugHandler implements HandlerInterface
 	 * @var string[]
 	 */
 	private $output = array();
+
+	/**
+	 * @return boolean
+	 */
+	public function getHandleComments()
+	{
+		return $this->handleComments;
+	}
+
+	/**
+	 * @param boolean $handleComments
+	 * @return $this
+	 */
+	public function setHandleComments($handleComments)
+	{
+		$this->handleComments = $handleComments;
+		return $this;
+	}
 
 	/**
 	 * @return void
@@ -75,6 +98,9 @@ class DebugHandler implements HandlerInterface
 	 */
 	public function onCommentBlock($comment)
 	{
+		if (!$this->getHandleComments()) {
+			return;
+		}
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $comment;
 	}
 

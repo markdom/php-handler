@@ -4,6 +4,7 @@ namespace Markdom\Dispatcher;
 
 use Markdom\Dispatcher\EventDispatcher\SimpleMarkdomEventDispatcher;
 use Markdom\Dispatcher\Exception\DispatcherException;
+use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\Handler\TypeNameTranslator\KeyNameTranslator;
 use Markdom\HandlerInterface\HandlerInterface;
 
@@ -12,13 +13,13 @@ use Markdom\HandlerInterface\HandlerInterface;
  *
  * @package Markdom\Dispatcher
  */
-class XmlDispatcher extends AbstractDispatcher
+class XmlDispatcher implements DispatcherInterface
 {
 
 	/**
-	 * @var HandlerInterface
+	 * @var \DOMDocument
 	 */
-	private $markdomHandler;
+	private $domDocument;
 
 	/**
 	 * @var SimpleMarkdomEventDispatcher
@@ -26,33 +27,33 @@ class XmlDispatcher extends AbstractDispatcher
 	private $eventDispatcher;
 
 	/**
-	 * Parser constructor.
+	 * XmlDispatcher constructor.
 	 *
-	 * @param HandlerInterface $markdomHandler
+	 * @param \DOMDocument $domDocument
 	 */
-	public function __construct(HandlerInterface $markdomHandler)
+	public function __construct(\DOMDocument $domDocument)
 	{
-		$this->markdomHandler = $markdomHandler;
+		$this->domDocument = $domDocument;
 	}
 
 	/**
-	 * @param \DOMDocument $source
-	 * @return $this
+	 * @param HandlerInterface $markdomHandler
+	 * @return mixed
 	 * @throws DispatcherException
 	 */
-	public function process($source)
+	public function dispatchTo(HandlerInterface $markdomHandler)
 	{
 		// Init event dispatcher
-		$this->eventDispatcher = new SimpleMarkdomEventDispatcher($this->markdomHandler);
+		$this->eventDispatcher = new SimpleMarkdomEventDispatcher($markdomHandler);
 		// Walk through the document
-		if (!is_object($source) || !$source instanceof \DOMDocument) {
+		if (!is_object($this->domDocument) || !$this->domDocument instanceof \DOMDocument) {
 			throw new DispatcherException('Markdom invalid: root node is no DOMDocument instance.');
 		}
-		if (!$source->hasChildNodes()) {
+		if (!$this->domDocument->hasChildNodes()) {
 			throw new DispatcherException('Markdom invalid');
 		}
 		/** @var \DOMElement $document */
-		$document = $source->firstChild;
+		$document = $this->domDocument->firstChild;
 		if (!$document->hasAttribute(KeyNameTranslator::ATTRIBUTE_DOCUMENT_VERSION)) {
 			throw new DispatcherException('Markdom invalid: no document version specified.');
 		}
@@ -62,7 +63,15 @@ class XmlDispatcher extends AbstractDispatcher
 		$this->eventDispatcher->onDocumentBegin();
 		$this->processBlocks($document->childNodes);
 		$this->eventDispatcher->onDocumentEnd();
-		return $this;
+		return $markdomHandler->getResult();
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isReusable()
+	{
+		return true;
 	}
 
 	/**
@@ -84,9 +93,7 @@ class XmlDispatcher extends AbstractDispatcher
 					$this->eventDispatcher->onCodeBlock($node->textContent, $hint);
 					break;
 				case KeyNameTranslator::TYPE_COMMENT:
-					if ($this->getDispatchCommentBlocks()) {
-						$this->eventDispatcher->onCommentBlock($node->textContent);
-					}
+					$this->eventDispatcher->onCommentBlock($node->textContent);
 					break;
 				case KeyNameTranslator::TYPE_DIVISION:
 					$this->eventDispatcher->onDivisionBlock();

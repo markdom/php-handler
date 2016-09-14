@@ -15,6 +15,11 @@ class XmlHandler implements HandlerInterface
 {
 
 	/**
+	 * @var bool
+	 */
+	private $handleComments = true;
+
+	/**
 	 * @var \DOMDocument
 	 */
 	private $document;
@@ -38,6 +43,24 @@ class XmlHandler implements HandlerInterface
 	 * @var bool
 	 */
 	private $prettyPrint = false;
+
+	/**
+	 * @return boolean
+	 */
+	public function getHandleComments()
+	{
+		return $this->handleComments;
+	}
+
+	/**
+	 * @param boolean $handleComments
+	 * @return $this
+	 */
+	public function setHandleComments($handleComments)
+	{
+		$this->handleComments = $handleComments;
+		return $this;
+	}
 
 	/**
 	 * @return bool
@@ -129,6 +152,9 @@ class XmlHandler implements HandlerInterface
 	 */
 	public function onCommentBlock($comment)
 	{
+		if (!$this->getHandleComments()) {
+			return;
+		}
 		$commentNode = $this->document->createElement(KeyNameTranslator::TYPE_COMMENT);
 		if (!empty($comment)) {
 			$commentNode->appendChild($this->createTextNode($comment));

@@ -20,6 +20,11 @@ class HtmlHandler implements HandlerInterface
 	const LINE_BREAK = PHP_EOL;
 
 	/**
+	 * @var bool
+	 */
+	private $handleComments = true;
+
+	/**
 	 * @var TagBuilderInterface
 	 */
 	protected $tagBuilder = null;
@@ -54,6 +59,24 @@ class HtmlHandler implements HandlerInterface
 		}
 		$this->htmlBuilder = new StringBuilder();
 		$this->blockStack = new Stack();
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getHandleComments()
+	{
+		return $this->handleComments;
+	}
+
+	/**
+	 * @param boolean $handleComments
+	 * @return $this
+	 */
+	public function setHandleComments($handleComments)
+	{
+		$this->handleComments = $handleComments;
+		return $this;
 	}
 
 	/**
@@ -165,6 +188,9 @@ class HtmlHandler implements HandlerInterface
 	 */
 	public function onCommentBlock($comment)
 	{
+		if (!$this->getHandleComments()) {
+			return;
+		}
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
 				TagBuilderInterface::TYPE_COMMENT,
