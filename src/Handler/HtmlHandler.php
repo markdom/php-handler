@@ -134,6 +134,22 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
+	 * @return StringBuilder
+	 */
+	public function getHtmlBuilder()
+	{
+		return $this->htmlBuilder;
+	}
+
+	/**
+	 * @return Stack
+	 */
+	public function getBlockStack()
+	{
+		return $this->blockStack;
+	}
+
+	/**
 	 * @return void
 	 */
 	public function onDocumentBegin()
