@@ -94,12 +94,12 @@ class XmlHandler implements HandlerInterface
 			$this->document->formatOutput = true;
 		}
 		$documentNode = $this->document->createElement(KeyNameTranslator::TYPE_DOCUMENT);
-		$documentVersionAttribute = $this->document->createAttribute('version');
-		$documentVersionAttribute->appendChild($this->document->createTextNode('1.0'));
-		$documentNode->appendChild($documentVersionAttribute);
-		$documentNamepsaceAttribute = $this->document->createAttribute('xmlns');
-		$documentNamepsaceAttribute->appendChild($this->document->createTextNode('http://schema.markenwerk.net/markdom-1.0.xsd'));
-		$documentNode->appendChild($documentNamepsaceAttribute);
+		$versionAttribute = $this->document->createAttribute('version');
+		$versionAttribute->appendChild($this->document->createTextNode('1.0'));
+		$documentNode->appendChild($versionAttribute);
+		$namepsaceAttribute = $this->document->createAttribute('xmlns');
+		$namepsaceAttribute->appendChild($this->document->createTextNode('http://schema.markenwerk.net/markdom-1.0.xsd'));
+		$documentNode->appendChild($namepsaceAttribute);
 		$this->document->appendChild($documentNode);
 		$this->blockParents->push($documentNode);
 	}

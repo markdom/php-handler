@@ -155,12 +155,12 @@ class CommonmarkHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param string $escapeLineStartCharacters
+	 * @param string $escapeCharacters
 	 * @return $this
 	 */
-	public function setEscapeLineStartCharacters($escapeLineStartCharacters)
+	public function setEscapeLineStartCharacters($escapeCharacters)
 	{
-		$this->escapeLineStartCharacters = $escapeLineStartCharacters;
+		$this->escapeLineStartCharacters = $escapeCharacters;
 		return $this;
 	}
 
@@ -202,8 +202,8 @@ class CommonmarkHandler implements HandlerInterface
 	 */
 	public function onCodeBlock($code, $hint = null)
 	{
-		$longestBacktickSequence = max(3, $this->longestBackticksSequence($code) + 1);
-		$backtickString = str_repeat('`', $longestBacktickSequence);
+		$backticksSequence = max(3, $this->longestBackticksSequence($code) + 1);
+		$backtickString = str_repeat('`', $backticksSequence);
 		$this
 			->startLine()
 			->append($backtickString)
@@ -487,11 +487,11 @@ class CommonmarkHandler implements HandlerInterface
 		if (empty($code)) {
 			$this->append(' ');
 		} else {
-			$longestBacktickSequence = $this->longestBackticksSequence($code);
-			if ($longestBacktickSequence === 0) {
+			$backticksSequence = $this->longestBackticksSequence($code);
+			if ($backticksSequence === 0) {
 				$this->append($code);
 			} else {
-				$this->appendCode($code, $longestBacktickSequence);
+				$this->appendCode($code, $backticksSequence);
 			}
 		}
 		$this->append('`');
@@ -737,12 +737,12 @@ class CommonmarkHandler implements HandlerInterface
 
 	/**
 	 * @param string $code
-	 * @param int $longestBacktickSequence
+	 * @param int $backticksSequence
 	 * @return $this
 	 */
-	private function appendCode($code, $longestBacktickSequence)
+	private function appendCode($code, $backticksSequence)
 	{
-		$backtickString = str_repeat('`', $longestBacktickSequence);
+		$backtickString = str_repeat('`', $backticksSequence);
 		$this->append($backtickString);
 		if (mb_substr($code, 0, 1) === '`') {
 			$this->append(' ');
