@@ -64,7 +64,7 @@ class JsonHandler extends PhpObjectHandler
 	public function getResult()
 	{
 		if ($this->prettyPrint) {
-			if (phpversion() && phpversion() >= 5.4) {
+			if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
 				if ($this->escapeUnicode) {
 					$options = JSON_PRETTY_PRINT;
 				} else {

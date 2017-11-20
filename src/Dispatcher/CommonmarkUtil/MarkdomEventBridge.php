@@ -64,6 +64,7 @@ final class MarkdomEventBridge
 	/**
 	 * @param NodeWalkerEvent $commonMarkEvent
 	 * @return $this
+	 * @throws DispatcherException
 	 */
 	public function dispatchMarkdomEvent(NodeWalkerEvent $commonMarkEvent)
 	{
@@ -202,7 +203,7 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_HTML_BLOCK:
 				/** @var HtmlBlock $node */
-				if ($node->getType() == $node::TYPE_2_COMMENT) {
+				if ($node->getType() === $node::TYPE_2_COMMENT) {
 					$this->dispatchBlockBeginEvents(BlockType::TYPE_COMMENT);
 					$comment = $node->getStringContent();
 					if (mb_strpos($comment, '<!--') === 0) {
@@ -244,7 +245,7 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_LIST_BLOCK:
 				/** @var ListBlock $node */
-				$ordered = $node->getListData()->type == ListBlock::TYPE_ORDERED;
+				$ordered = $node->getListData()->type === ListBlock::TYPE_ORDERED;
 				if ($ordered) {
 					$startIndex = $node->getListData()->start;
 					$this->dispatchBlockBeginEvents(BlockType::TYPE_ORDERED_LIST);
@@ -315,7 +316,7 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_HTML_BLOCK:
 				/** @var HtmlBlock $node */
-				if ($node->getType() == $node::TYPE_2_COMMENT) {
+				if ($node->getType() === $node::TYPE_2_COMMENT) {
 					$this->dispatchBlockEndEvents($node, BlockType::TYPE_COMMENT);
 				}
 				break;
@@ -336,7 +337,7 @@ final class MarkdomEventBridge
 			case DocumentProcessor::BLOCK_NODE_LIST_BLOCK:
 				/** @var ListBlock $node */
 				$this->markdomHandler->onListItemsEnd();
-				$ordered = $node->getListData()->type == ListBlock::TYPE_ORDERED;
+				$ordered = $node->getListData()->type === ListBlock::TYPE_ORDERED;
 				if ($ordered) {
 					$startIndex = $node->getListData()->start;
 					$this->markdomHandler->onOrderedListBlockEnd($startIndex);
@@ -393,7 +394,7 @@ final class MarkdomEventBridge
 			case DocumentProcessor::INLINE_NODE_NEWLINE:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_LINE_BREAK);
 				/** @var Newline $node */
-				$hard = $node->getType() == Newline::HARDBREAK;
+				$hard = $node->getType() === Newline::HARDBREAK;
 				$this->markdomHandler->onLineBreakContent($hard);
 				break;
 			case DocumentProcessor::INLINE_NODE_TEXT:

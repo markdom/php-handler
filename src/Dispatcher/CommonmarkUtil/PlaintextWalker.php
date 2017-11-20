@@ -40,7 +40,7 @@ final class PlaintextWalker
 					break;
 				case DocumentProcessor::INLINE_NODE_NEWLINE:
 					/** @var Newline $currentNode */
-					$hard = $currentNode->getType() == Newline::HARDBREAK;
+					$hard = $currentNode->getType() === Newline::HARDBREAK;
 					if ($hard) {
 						$this->appendSpace();
 					}

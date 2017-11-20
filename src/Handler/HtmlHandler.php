@@ -428,7 +428,7 @@ class HtmlHandler implements HandlerInterface
 	public function onEmphasisContentBegin($level)
 	{
 		$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_1_BEGIN;
-		if ($level == EmphasisLevel::LEVEL_2) {
+		if ($level === EmphasisLevel::LEVEL_2) {
 			$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_2_BEGIN;
 		}
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag($tagType));
@@ -441,7 +441,7 @@ class HtmlHandler implements HandlerInterface
 	public function onEmphasisContentEnd($level)
 	{
 		$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_1_END;
-		if ($level == EmphasisLevel::LEVEL_2) {
+		if ($level === EmphasisLevel::LEVEL_2) {
 			$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_2_END;
 		}
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag($tagType));

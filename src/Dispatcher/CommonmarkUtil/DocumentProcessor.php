@@ -4,6 +4,7 @@ namespace Markdom\Dispatcher\CommonmarkUtil;
 
 use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocumentProcessorInterface;
+use Markdom\Dispatcher\Exception\DispatcherException;
 use Markdom\Dispatcher\HtmlProcessor\HtmlProcessorInterface;
 use Markdom\Dispatcher\HtmlProcessor\HtmlTextProcessor;
 use Markdom\HandlerInterface\HandlerInterface;
@@ -75,6 +76,7 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	/**
 	 * @param Document $document
 	 * @return void
+	 * @throws DispatcherException
 	 */
 	public function processDocument(Document $document)
 	{

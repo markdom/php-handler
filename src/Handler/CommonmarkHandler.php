@@ -619,10 +619,10 @@ class CommonmarkHandler implements HandlerInterface
 					(
 						!$this->lineStarted
 						&& $this->inParagraphBlock
-						&& in_array($character, $this->escapeLineStartCharacterList)
+						&& in_array($character, $this->escapeLineStartCharacterList, true)
 						&& ($nextCharacter === ' ' || $nextCharacter === "\t")
 					)
-					|| in_array($character, $this->escapeCharacterList)
+					|| in_array($character, $this->escapeCharacterList, true)
 				) {
 					$this->appendPendingDelimiters($builder);
 					$builder->append('\\' . $character);
@@ -744,7 +744,7 @@ class CommonmarkHandler implements HandlerInterface
 	{
 		$backtickString = str_repeat('`', $backticksSequence);
 		$this->append($backtickString);
-		if (mb_substr($code, 0, 1) === '`') {
+		if (mb_strpos($code, '`') === 0) {
 			$this->append(' ');
 		}
 		$this->append($code);
