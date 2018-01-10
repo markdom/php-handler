@@ -10,72 +10,74 @@ use Markdom\DispatcherInterface\DispatcherInterface;
 use Markdom\HandlerInterface\HandlerInterface;
 
 /**
- * Class CommonmarkDispatcher
+ * Class CommonmarkDispatcher.
  *
  * @package Markdom\Dispatcher
  */
 class CommonmarkDispatcher implements DispatcherInterface
 {
+    /**
+     * @var HtmlProcessorInterface
+     */
+    private $htmlProcessor = null;
 
-	/**
-	 * @var HtmlProcessorInterface
-	 */
-	private $htmlProcessor = null;
+    /**
+     * @var string
+     */
+    private $commonmarkString;
 
-	/**
-	 * @var string
-	 */
-	private $commonmarkString;
+    /**
+     * CommonmarkDispatcher constructor.
+     *
+     * @param string $commonmarkString
+     */
+    public function __construct($commonmarkString)
+    {
+        $this->commonmarkString = $commonmarkString;
+    }
 
-	/**
-	 * CommonmarkDispatcher constructor.
-	 *
-	 * @param string $commonmarkString
-	 */
-	public function __construct($commonmarkString)
-	{
-		$this->commonmarkString = $commonmarkString;
-	}
+    /**
+     * @return HtmlProcessorInterface
+     */
+    public function getHtmlProcessor()
+    {
+        return $this->htmlProcessor;
+    }
 
-	/**
-	 * @return HtmlProcessorInterface
-	 */
-	public function getHtmlProcessor()
-	{
-		return $this->htmlProcessor;
-	}
+    /**
+     * @param HtmlProcessorInterface $htmlProcessor
+     *
+     * @return $this
+     */
+    public function setHtmlProcessor($htmlProcessor)
+    {
+        $this->htmlProcessor = $htmlProcessor;
 
-	/**
-	 * @param HtmlProcessorInterface $htmlProcessor
-	 * @return $this
-	 */
-	public function setHtmlProcessor($htmlProcessor)
-	{
-		$this->htmlProcessor = $htmlProcessor;
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function isReusable()
-	{
-		return true;
-	}
+    /**
+     * @return bool
+     */
+    public function isReusable()
+    {
+        return true;
+    }
 
-	/**
-	 * @param HandlerInterface $markdomHandler
-	 * @return mixed
-	 */
-	public function dispatchTo(HandlerInterface $markdomHandler)
-	{
-		$commonMarkEnvironment = Environment::createCommonMarkEnvironment();
-		$commonMarkEnvironment->addDocumentProcessor(
+    /**
+     * @param HandlerInterface $markdomHandler
+     *
+     * @return mixed
+     */
+    public function dispatchTo(HandlerInterface $markdomHandler)
+    {
+        $commonMarkEnvironment = Environment::createCommonMarkEnvironment();
+        $commonMarkEnvironment->addDocumentProcessor(
 			new DocumentProcessor($markdomHandler, $this->htmlProcessor)
 		);
-		$docParser = new DocParser($commonMarkEnvironment);
-		$docParser->parse($this->commonmarkString);
-		return $markdomHandler->getResult();
-	}
+        $docParser = new DocParser($commonMarkEnvironment);
+        $docParser->parse($this->commonmarkString);
 
+        return $markdomHandler->getResult();
+    }
 }

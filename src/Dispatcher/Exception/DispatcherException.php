@@ -3,11 +3,10 @@
 namespace Markdom\Dispatcher\Exception;
 
 /**
- * Class DispatcherException
+ * Class DispatcherException.
  *
  * @package Markdom\Dispatcher\Exception
  */
 class DispatcherException extends \Exception
 {
-
 }
