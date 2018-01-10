@@ -3,57 +3,57 @@
 namespace Markdom\Handler\CommonmarkUtil;
 
 /**
- * Class HandlerDelimiter
+ * Class HandlerDelimiter.
  *
  * @package Markdom\Handler\CommonmarkUtil
  */
 final class HandlerDelimiter
 {
+    /**
+     * @var string
+     */
+    private $literal;
 
-	/**
-	 * @var string
-	 */
-	private $literal;
+    /**
+     * @var bool
+     */
+    private $empty = true;
 
-	/**
-	 * @var bool
-	 */
-	private $empty = true;
+    /**
+     * MarkdownHandlerDelimiter constructor.
+     *
+     * @param string $literal
+     */
+    public function __construct($literal)
+    {
+        $this->literal = $literal;
+    }
 
-	/**
-	 * MarkdownHandlerDelimiter constructor.
-	 *
-	 * @param string $literal
-	 */
-	public function __construct($literal)
-	{
-		$this->literal = $literal;
-	}
+    /**
+     * @return string
+     */
+    public function getLiteral()
+    {
+        return $this->literal;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getLiteral()
-	{
-		return $this->literal;
-	}
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return $this->empty;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isEmpty()
-	{
-		return $this->empty;
-	}
+    /**
+     * @param bool $empty
+     *
+     * @return $this
+     */
+    public function setEmpty($empty)
+    {
+        $this->empty = $empty;
 
-	/**
-	 * @param boolean $empty
-	 * @return $this
-	 */
-	public function setEmpty($empty)
-	{
-		$this->empty = $empty;
-		return $this;
-	}
-
+        return $this;
+    }
 }

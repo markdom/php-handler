@@ -9,85 +9,89 @@ use Markdom\Handler\TypeNameTranslator\KeyNameTranslator;
 use Markdom\HandlerInterface\HandlerInterface;
 
 /**
- * Class PhpObjectDispatcher
+ * Class PhpObjectDispatcher.
  *
  * @package Markdom\Dispatcher
  */
 class PhpObjectDispatcher implements DispatcherInterface
 {
+    /**
+     * @var SimpleMarkdomEventDispatcher
+     */
+    private $eventDispatcher;
 
-	/**
-	 * @var SimpleMarkdomEventDispatcher
-	 */
-	private $eventDispatcher;
+    /**
+     * @var \stdClass
+     */
+    private $document;
 
-	/**
-	 * @var \stdClass
-	 */
-	private $document;
+    /**
+     * PhpObjectDispatcher constructor.
+     *
+     * @param \stdClass $document
+     */
+    public function __construct($document)
+    {
+        $this->document = $document;
+    }
 
-	/**
-	 * PhpObjectDispatcher constructor.
-	 *
-	 * @param \stdClass $document
-	 */
-	public function __construct($document)
-	{
-		$this->document = $document;
-	}
+    /**
+     * @param HandlerInterface $markdomHandler
+     *
+     * @throws DispatcherException
+     *
+     * @return mixed
+     */
+    public function dispatchTo(HandlerInterface $markdomHandler)
+    {
+        // Init event dispatcher
+        $this->eventDispatcher = new SimpleMarkdomEventDispatcher($markdomHandler);
+        // Walk through the document
+        if (!is_object($this->document)) {
+            throw new DispatcherException('Markdom invalid: root node is no object.');
+        }
+        if (!isset($this->document->version) || !is_object($this->document->version)) {
+            throw new DispatcherException('Markdom invalid: no document version specified.');
+        }
+        if (!isset($this->document->version->major) || !isset($this->document->version->minor)) {
+            throw new DispatcherException('Markdom invalid: no document valid version specified.');
+        }
+        if ((int) $this->document->version->major !== 1 || (int) $this->document->version->minor !== 0) {
+            throw new DispatcherException('Markdom invalid: version mismatch Expected version 1.0.');
+        }
+        $this->eventDispatcher->onDocumentBegin();
+        $this->processBlocks($this->document->blocks);
+        $this->eventDispatcher->onDocumentEnd();
 
-	/**
-	 * @param HandlerInterface $markdomHandler
-	 * @return mixed
-	 * @throws DispatcherException
-	 */
-	public function dispatchTo(HandlerInterface $markdomHandler)
-	{
-		// Init event dispatcher
-		$this->eventDispatcher = new SimpleMarkdomEventDispatcher($markdomHandler);
-		// Walk through the document
-		if (!is_object($this->document)) {
-			throw new DispatcherException('Markdom invalid: root node is no object.');
-		}
-		if (!isset($this->document->version) || !is_object($this->document->version)) {
-			throw new DispatcherException('Markdom invalid: no document version specified.');
-		}
-		if (!isset($this->document->version->major) || !isset($this->document->version->minor)) {
-			throw new DispatcherException('Markdom invalid: no document valid version specified.');
-		}
-		if ((int)$this->document->version->major !== 1 || (int)$this->document->version->minor !== 0) {
-			throw new DispatcherException('Markdom invalid: version mismatch Expected version 1.0.');
-		}
-		$this->eventDispatcher->onDocumentBegin();
-		$this->processBlocks($this->document->blocks);
-		$this->eventDispatcher->onDocumentEnd();
-		return $markdomHandler->getResult();
-	}
+        return $markdomHandler->getResult();
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function isReusable()
-	{
-		return true;
-	}
+    /**
+     * @return bool
+     */
+    public function isReusable()
+    {
+        return true;
+    }
 
-	/**
-	 * @param \stdClass[] $blocks
-	 * @return $this
-	 * @throws DispatcherException
-	 */
-	private function processBlocks(array $blocks)
-	{
-		for ($i = 0, $n = count($blocks); $i < $n; $i++) {
-			$node = $blocks[$i];
-			if (!is_object($node)) {
-				throw new DispatcherException('Markdom invalid: block node is no object.');
-			}
-			if (!isset($node->type)) {
-				throw new DispatcherException('Markdom invalid: block node has no type.');
-			}
-			switch ($node->type) {
+    /**
+     * @param \stdClass[] $blocks
+     *
+     * @throws DispatcherException
+     *
+     * @return $this
+     */
+    private function processBlocks(array $blocks)
+    {
+        for ($i = 0, $n = count($blocks); $i < $n; $i++) {
+            $node = $blocks[$i];
+            if (!is_object($node)) {
+                throw new DispatcherException('Markdom invalid: block node is no object.');
+            }
+            if (!isset($node->type)) {
+                throw new DispatcherException('Markdom invalid: block node has no type.');
+            }
+            switch ($node->type) {
 				case KeyNameTranslator::TYPE_CODE:
 					$hint = isset($node->hint) ? $node->hint : null;
 					$this->eventDispatcher->onCodeBlock($node->code, $hint);
@@ -127,45 +131,51 @@ class PhpObjectDispatcher implements DispatcherInterface
 					throw new DispatcherException('Markdom invalid: block node type ' . $node->type . ' is invalid.');
 					break;
 			}
-		}
-		return $this;
-	}
+        }
 
-	/**
-	 * @param \stdClass[] $listItems
-	 * @return $this
-	 * @throws DispatcherException
-	 */
-	private function processListItems(array $listItems)
-	{
-		for ($i = 0, $n = count($listItems); $i < $n; $i++) {
-			$node = $listItems[$i];
-			if (!is_object($node)) {
-				throw new DispatcherException('Markdom invalid: list item node is no object.');
-			}
-			$this->eventDispatcher->onListItemBegin();
-			$this->processBlocks($node->blocks);
-			$this->eventDispatcher->onListItemEnd();
-		}
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param \stdClass[] $contents
-	 * @return $this
-	 * @throws DispatcherException
-	 */
-	private function processContents(array $contents)
-	{
-		for ($i = 0, $n = count($contents); $i < $n; $i++) {
-			$node = $contents[$i];
-			if (!is_object($node)) {
-				throw new DispatcherException('Markdom invalid: content node is no object.');
-			}
-			if (!isset($node->type)) {
-				throw new DispatcherException('Markdom invalid: content node has no type.');
-			}
-			switch ($node->type) {
+    /**
+     * @param \stdClass[] $listItems
+     *
+     * @throws DispatcherException
+     *
+     * @return $this
+     */
+    private function processListItems(array $listItems)
+    {
+        for ($i = 0, $n = count($listItems); $i < $n; $i++) {
+            $node = $listItems[$i];
+            if (!is_object($node)) {
+                throw new DispatcherException('Markdom invalid: list item node is no object.');
+            }
+            $this->eventDispatcher->onListItemBegin();
+            $this->processBlocks($node->blocks);
+            $this->eventDispatcher->onListItemEnd();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \stdClass[] $contents
+     *
+     * @throws DispatcherException
+     *
+     * @return $this
+     */
+    private function processContents(array $contents)
+    {
+        for ($i = 0, $n = count($contents); $i < $n; $i++) {
+            $node = $contents[$i];
+            if (!is_object($node)) {
+                throw new DispatcherException('Markdom invalid: content node is no object.');
+            }
+            if (!isset($node->type)) {
+                throw new DispatcherException('Markdom invalid: content node has no type.');
+            }
+            switch ($node->type) {
 				case KeyNameTranslator::TYPE_CODE:
 					$this->eventDispatcher->onCodeContent($node->code);
 					break;
@@ -195,8 +205,8 @@ class PhpObjectDispatcher implements DispatcherInterface
 					throw new DispatcherException('Markdom invalid: content node type ' . $node->type . ' is invalid.');
 					break;
 			}
-		}
-		return $this;
-	}
+        }
 
+        return $this;
+    }
 }

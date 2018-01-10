@@ -5,20 +5,18 @@ namespace Markdom\Handler;
 use Markdom\Handler\HtmlTagBuilder\XhtmlTagBuilder;
 
 /**
- * Class XhtmlHandler
+ * Class XhtmlHandler.
  *
  * @package Markdom\Handler
  */
 class XhtmlHandler extends HtmlHandler
 {
-
-	/**
-	 * XhtmlHandler constructor.
-	 */
-	public function __construct()
-	{
-		$this->tagBuilder = new XhtmlTagBuilder();
-		parent::__construct();
-	}
-
+    /**
+     * XhtmlHandler constructor.
+     */
+    public function __construct()
+    {
+        $this->tagBuilder = new XhtmlTagBuilder();
+        parent::__construct();
+    }
 }

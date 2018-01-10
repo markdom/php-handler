@@ -3,22 +3,20 @@
 namespace Markdom\Dispatcher;
 
 /**
- * Class JsonDispatcher
+ * Class JsonDispatcher.
  *
  * @package Markdom\Dispatcher
  */
 class JsonDispatcher extends PhpObjectDispatcher
 {
-
-	/**
-	 * JsonDispatcher constructor.
-	 *
-	 * @param string $jsonString
-	 */
-	public function __construct($jsonString)
-	{
-		$markdomObject = json_decode($jsonString);
-		parent::__construct($markdomObject);
-	}
-
+    /**
+     * JsonDispatcher constructor.
+     *
+     * @param string $jsonString
+     */
+    public function __construct($jsonString)
+    {
+        $markdomObject = json_decode($jsonString);
+        parent::__construct($markdomObject);
+    }
 }

@@ -6,24 +6,25 @@ use Markdom\Common\HeadingLevel;
 use Markdom\Handler\Exception\HandlerException;
 
 /**
- * Class HtmlTagBuilder
+ * Class HtmlTagBuilder.
  *
  * @package Markdom\Handler\HtmlTagBuilder
  */
 class HtmlTagBuilder implements TagBuilderInterface
 {
-
-	/**
-	 * @param string $type
-	 * @param string $value
-	 * @param array $attributes
-	 * @param string $variant
-	 * @return string
-	 * @throws HandlerException
-	 */
-	public function buildTag($type, $value = null, array $attributes = array(), $variant = null)
-	{
-		switch ($type) {
+    /**
+     * @param string $type
+     * @param string $value
+     * @param array  $attributes
+     * @param string $variant
+     *
+     * @throws HandlerException
+     *
+     * @return string
+     */
+    public function buildTag($type, $value = null, array $attributes = [], $variant = null)
+    {
+        switch ($type) {
 			case self::TYPE_CODE_BLOCK:
 				return '<pre><code' . $this->getAttributeString($attributes) . '>' . $value . '</code></pre>';
 			case self::TYPE_CODE_INLINE:
@@ -101,30 +102,32 @@ class HtmlTagBuilder implements TagBuilderInterface
 			case self::TYPE_LINK_END:
 				return '</a>';
 		}
-		throw new HandlerException('Invalid tagname type');
-	}
 
-	/**
-	 * @param array $attributes
-	 * @return string
-	 */
-	protected function getAttributeString(array $attributes)
-	{
-		$attributeParts = array();
-		foreach ($attributes as $key => &$value) {
-			if (is_null($value)) {
-				continue;
-			}
-			$value = trim($value);
-			if (empty($value)) {
-				continue;
-			}
-			$attributeParts[] = mb_strtolower($key) . '="' . $value . '"';
-		}
-		if (empty($attributeParts)) {
-			return '';
-		}
-		return ' ' . implode(' ', $attributeParts);
-	}
+        throw new HandlerException('Invalid tagname type');
+    }
 
+    /**
+     * @param array $attributes
+     *
+     * @return string
+     */
+    protected function getAttributeString(array $attributes)
+    {
+        $attributeParts = [];
+        foreach ($attributes as $key => &$value) {
+            if (is_null($value)) {
+                continue;
+            }
+            $value = trim($value);
+            if (empty($value)) {
+                continue;
+            }
+            $attributeParts[] = mb_strtolower($key) . '="' . $value . '"';
+        }
+        if (empty($attributeParts)) {
+            return '';
+        }
+
+        return ' ' . implode(' ', $attributeParts);
+    }
 }
