@@ -45,7 +45,7 @@ class XmlHandler implements HandlerInterface
 	private $prettyPrint = false;
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getHandleComments()
 	{
@@ -53,7 +53,7 @@ class XmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param boolean $handleComments
+	 * @param bool $handleComments
 	 * @return $this
 	 */
 	public function setHandleComments($handleComments)

@@ -40,7 +40,7 @@ class PhpObjectHandler implements HandlerInterface
 	private $contentParents;
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getHandleComments()
 	{
@@ -48,7 +48,7 @@ class PhpObjectHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param boolean $handleComments
+	 * @param bool $handleComments
 	 * @return $this
 	 */
 	public function setHandleComments($handleComments)

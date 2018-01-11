@@ -28,7 +28,7 @@ class DebugHandler implements HandlerInterface
 	private $output = array();
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getHandleComments()
 	{
@@ -36,7 +36,7 @@ class DebugHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param boolean $handleComments
+	 * @param bool $handleComments
 	 * @return $this
 	 */
 	public function setHandleComments($handleComments)

@@ -39,7 +39,7 @@ class YamlHandler extends PhpObjectHandler
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getWordWrap()
 	{
@@ -47,7 +47,7 @@ class YamlHandler extends PhpObjectHandler
 	}
 
 	/**
-	 * @param boolean $wordWrap
+	 * @param bool $wordWrap
 	 * @return $this
 	 */
 	public function setWordWrap($wordWrap)

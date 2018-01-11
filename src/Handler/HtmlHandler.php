@@ -62,7 +62,7 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getHandleComments()
 	{
@@ -70,7 +70,7 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param boolean $handleComments
+	 * @param bool $handleComments
 	 * @return $this
 	 */
 	public function setHandleComments($handleComments)
@@ -98,7 +98,7 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getEscapeHtml()
 	{
@@ -106,7 +106,7 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param boolean $escapeHtml
+	 * @param bool $escapeHtml
 	 * @return $this
 	 */
 	public function setEscapeHtml($escapeHtml)
@@ -116,7 +116,7 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getBreakSoftBreaks()
 	{
@@ -124,7 +124,7 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param boolean $breakSoftBreaks
+	 * @param bool $breakSoftBreaks
 	 * @return $this
 	 */
 	public function setBreakSoftBreaks($breakSoftBreaks)

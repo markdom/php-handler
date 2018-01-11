@@ -111,7 +111,7 @@ class CommonmarkHandler implements HandlerInterface
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getHandleComments()
 	{
@@ -119,7 +119,7 @@ class CommonmarkHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param boolean $handleComments
+	 * @param bool $handleComments
 	 * @return $this
 	 */
 	public function setHandleComments($handleComments)

@@ -39,7 +39,7 @@ final class HandlerDelimiter
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function isEmpty()
 	{
@@ -47,7 +47,7 @@ final class HandlerDelimiter
 	}
 
 	/**
-	 * @param boolean $empty
+	 * @param bool $empty
 	 * @return $this
 	 */
 	public function setEmpty($empty)
