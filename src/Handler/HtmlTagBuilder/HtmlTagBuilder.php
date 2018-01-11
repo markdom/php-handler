@@ -25,10 +25,10 @@ class HtmlTagBuilder implements TagBuilderInterface
 	{
 		switch ($type) {
 			case self::TYPE_CODE_BLOCK:
-				/** @noinspection HtmlUnknownTag */
+				/* @noinspection HtmlUnknownTag */
 				return '<pre><code' . $this->getAttributeString($attributes) . '>' . $value . '</code></pre>';
 			case self::TYPE_CODE_INLINE:
-				/** @noinspection HtmlUnknownTag */
+				/* @noinspection HtmlUnknownTag */
 				return '<code' . $this->getAttributeString($attributes) . '>' . $value . '</code>';
 			case self::TYPE_COMMENT:
 				return '<!-- ' . $value . ' -->';

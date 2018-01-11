@@ -62,9 +62,9 @@ class YamlHandler extends PhpObjectHandler
 	public function getResult()
 	{
 		$indent = ($this->prettyPrint !== false) ? 4 : false;
-		/** @noinspection PhpUndefinedClassInspection */
+		/* @noinspection PhpUndefinedClassInspection */
 		$yaml = new \Spyc();
-		/** @noinspection PhpParamsInspection */
+		/* @noinspection PhpParamsInspection */
 		return $yaml->YAMLDump(parent::getResult(), $indent, $this->getWordWrap());
 	}
 
