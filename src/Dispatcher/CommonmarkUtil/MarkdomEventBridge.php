@@ -186,23 +186,23 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_EMPHASIS:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_EMPHASIS);
-				/** @var Emphasis $node */
+				/* @var Emphasis $node */
 				$this->markdomHandler->onEmphasisContentBegin(EmphasisLevel::LEVEL_1);
 				$this->dispatchContentsBeginEvents();
 				break;
 			case DocumentProcessor::BLOCK_NODE_FENCED_CODE:
 				$this->dispatchBlockBeginEvents(BlockType::TYPE_CODE);
-				/** @var FencedCode $node */
+				/* @var FencedCode $node */
 				$this->markdomHandler->onCodeBlock(trim($node->getStringContent()), $node->getInfo());
 				break;
 			case DocumentProcessor::BLOCK_NODE_HEADING:
 				$this->dispatchBlockBeginEvents(BlockType::TYPE_HEADING);
-				/** @var Heading $node */
+				/* @var Heading $node */
 				$this->markdomHandler->onHeadingBlockBegin($node->getLevel());
 				$this->dispatchContentsBeginEvents();
 				break;
 			case DocumentProcessor::BLOCK_NODE_HTML_BLOCK:
-				/** @var HtmlBlock $node */
+				/* @var HtmlBlock $node */
 				if ($node->getType() === $node::TYPE_2_COMMENT) {
 					$this->dispatchBlockBeginEvents(BlockType::TYPE_COMMENT);
 					$comment = $node->getStringContent();
@@ -223,7 +223,7 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_IMAGE:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_IMAGE);
-				/** @var Image $node */
+				/* @var Image $node */
 				$plaintextBuilder = new PlaintextWalker();
 				$alternativeText = $plaintextBuilder
 					->processNode($node)
@@ -232,19 +232,19 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_INDENTED_CODE:
 				$this->dispatchBlockBeginEvents(BlockType::TYPE_CODE);
-				/** @var IndentedCode $node */
+				/* @var IndentedCode $node */
 				$this->markdomHandler->onCodeBlock(trim($node->getStringContent()));
 				break;
 			case DocumentProcessor::BLOCK_NODE_INLINE_CONTAINER:
 				break;
 			case DocumentProcessor::BLOCK_NODE_LINK:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_LINK);
-				/** @var Link $node */
+				/* @var Link $node */
 				$this->markdomHandler->onLinkContentBegin($node->getUrl(), $node->getData('title'));
 				$this->dispatchContentsBeginEvents();
 				break;
 			case DocumentProcessor::BLOCK_NODE_LIST_BLOCK:
-				/** @var ListBlock $node */
+				/* @var ListBlock $node */
 				$ordered = $node->getListData()->type === ListBlock::TYPE_ORDERED;
 				if ($ordered) {
 					$startIndex = $node->getListData()->start;
@@ -259,7 +259,7 @@ final class MarkdomEventBridge
 			case DocumentProcessor::BLOCK_NODE_LIST_DATA:
 				break;
 			case DocumentProcessor::BLOCK_NODE_LIST_ITEM:
-				/** @var ListItem $node */
+				/* @var ListItem $node */
 				$this->markdomHandler->onListItemBegin();
 				$this->dispatchBlocksBeginEvents();
 				break;
@@ -270,7 +270,7 @@ final class MarkdomEventBridge
 				break;
 			case DocumentProcessor::BLOCK_NODE_STRONG:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_EMPHASIS);
-				/** @var Emphasis $node */
+				/* @var Emphasis $node */
 				$this->markdomHandler->onEmphasisContentBegin(EmphasisLevel::LEVEL_2);
 				$this->dispatchContentsBeginEvents();
 				break;
@@ -309,13 +309,13 @@ final class MarkdomEventBridge
 				$this->dispatchBlockEndEvents($node, BlockType::TYPE_CODE);
 				break;
 			case DocumentProcessor::BLOCK_NODE_HEADING:
-				/** @var Heading $node */
+				/* @var Heading $node */
 				$this->dispatchContentsEndEvents();
 				$this->markdomHandler->onHeadingBlockEnd($node->getLevel());
 				$this->dispatchBlockEndEvents($node, BlockType::TYPE_HEADING);
 				break;
 			case DocumentProcessor::BLOCK_NODE_HTML_BLOCK:
-				/** @var HtmlBlock $node */
+				/* @var HtmlBlock $node */
 				if ($node->getType() === $node::TYPE_2_COMMENT) {
 					$this->dispatchBlockEndEvents($node, BlockType::TYPE_COMMENT);
 				}
@@ -329,13 +329,13 @@ final class MarkdomEventBridge
 			case DocumentProcessor::BLOCK_NODE_INLINE_CONTAINER:
 				break;
 			case DocumentProcessor::BLOCK_NODE_LINK:
-				/** @var Link $node */
+				/* @var Link $node */
 				$this->dispatchContentsEndEvents();
 				$this->markdomHandler->onLinkContentEnd($node->getUrl());
 				$this->dispatchContentEndEvents($node, ContentType::TYPE_LINK);
 				break;
 			case DocumentProcessor::BLOCK_NODE_LIST_BLOCK:
-				/** @var ListBlock $node */
+				/* @var ListBlock $node */
 				$this->markdomHandler->onListItemsEnd();
 				$ordered = $node->getListData()->type === ListBlock::TYPE_ORDERED;
 				if ($ordered) {
@@ -384,22 +384,22 @@ final class MarkdomEventBridge
 		switch (get_class($node)) {
 			case DocumentProcessor::INLINE_NODE_CODE:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_CODE);
-				/** @var Code $node */
+				/* @var Code $node */
 				$this->markdomHandler->onCodeContent($node->getContent());
 				break;
 			case DocumentProcessor::INLINE_NODE_HTML_INLINE:
-				/** @var HtmlInline $node */
+				/* @var HtmlInline $node */
 				$this->htmlProcessor->handleInlineHtml($node, $this->markdomHandler);
 				break;
 			case DocumentProcessor::INLINE_NODE_NEWLINE:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_LINE_BREAK);
-				/** @var Newline $node */
+				/* @var Newline $node */
 				$hard = $node->getType() === Newline::HARDBREAK;
 				$this->markdomHandler->onLineBreakContent($hard);
 				break;
 			case DocumentProcessor::INLINE_NODE_TEXT:
 				$this->dispatchContentBeginEvents(ContentType::TYPE_TEXT);
-				/** @var Text $node */
+				/* @var Text $node */
 				$this->markdomHandler->onTextContent($node->getContent());
 				break;
 			default:

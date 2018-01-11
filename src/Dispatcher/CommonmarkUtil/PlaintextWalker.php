@@ -33,20 +33,20 @@ final class PlaintextWalker
 			$currentNode = $event->getNode();
 			switch (get_class($currentNode)) {
 				case DocumentProcessor::INLINE_NODE_CODE:
-					/** @var Code $currentNode */
+					/* @var Code $currentNode */
 					$this
 						->appendSpace()
 						->appendPlaintext($currentNode->getContent());
 					break;
 				case DocumentProcessor::INLINE_NODE_NEWLINE:
-					/** @var Newline $currentNode */
+					/* @var Newline $currentNode */
 					$hard = $currentNode->getType() === Newline::HARDBREAK;
 					if ($hard) {
 						$this->appendSpace();
 					}
 					break;
 				case DocumentProcessor::INLINE_NODE_TEXT:
-					/** @var Text $currentNode */
+					/* @var Text $currentNode */
 					$this
 						->appendSpace()
 						->appendPlaintext($currentNode->getContent());

@@ -141,7 +141,7 @@ class XmlHandler implements HandlerInterface
 		$hintAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_CODE_HINT);
 		$hintAttribute->appendChild($this->document->createTextNode($hint));
 		$codeNode->appendChild($hintAttribute);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($codeNode);
 	}
@@ -159,7 +159,7 @@ class XmlHandler implements HandlerInterface
 		if (!empty($comment)) {
 			$commentNode->appendChild($this->createTextNode($comment));
 		}
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($commentNode);
 	}
@@ -169,7 +169,7 @@ class XmlHandler implements HandlerInterface
 	 */
 	public function onDivisionBlock()
 	{
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($this->document->createElement(KeyNameTranslator::TYPE_DIVISION));
 	}
@@ -184,7 +184,7 @@ class XmlHandler implements HandlerInterface
 		$levelAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_HEADING_LEVEL);
 		$levelAttribute->appendChild($this->document->createTextNode((string)$level));
 		$headingNode->appendChild($levelAttribute);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($headingNode);
 		$this->contentParents->push($headingNode);
@@ -205,7 +205,7 @@ class XmlHandler implements HandlerInterface
 	public function onUnorderedListBlockBegin()
 	{
 		$listNode = $this->document->createElement(KeyNameTranslator::TYPE_UNORDERED_LIST);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($listNode);
 		$this->listBlocks->push($listNode);
@@ -221,7 +221,7 @@ class XmlHandler implements HandlerInterface
 		$startIndexAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_ORDERED_LIST_START_INDEX);
 		$startIndexAttribute->appendChild($this->document->createTextNode((string)$startIndex));
 		$listNode->appendChild($startIndexAttribute);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($listNode);
 		$this->listBlocks->push($listNode);
@@ -240,7 +240,7 @@ class XmlHandler implements HandlerInterface
 	public function onListItemBegin()
 	{
 		$listItemNode = $this->document->createElement(KeyNameTranslator::TYPE_LIST_ITEM);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->listBlocks->get();
 		$parent->appendChild($listItemNode);
 		$this->blockParents->push($listItemNode);
@@ -291,7 +291,7 @@ class XmlHandler implements HandlerInterface
 	public function onParagraphBlockBegin()
 	{
 		$paragraphNode = $this->document->createElement(KeyNameTranslator::TYPE_PARAGRAPH);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($paragraphNode);
 		$this->contentParents->push($paragraphNode);
@@ -311,7 +311,7 @@ class XmlHandler implements HandlerInterface
 	public function onQuoteBlockBegin()
 	{
 		$quoteNode = $this->document->createElement(KeyNameTranslator::TYPE_QUOTE);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
 		$parent->appendChild($quoteNode);
 		$this->blockParents->push($quoteNode);
@@ -372,7 +372,7 @@ class XmlHandler implements HandlerInterface
 		if (!empty($code)) {
 			$codeNode->appendChild($this->createTextNode($code));
 		}
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
 		$parent->appendChild($codeNode);
 	}
@@ -387,7 +387,7 @@ class XmlHandler implements HandlerInterface
 		$levelAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_EMPHASIS_LEVEL);
 		$levelAttribute->appendChild($this->document->createTextNode($level));
 		$emphasisNode->appendChild($levelAttribute);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
 		$parent->appendChild($emphasisNode);
 		$this->contentParents->push($emphasisNode);
@@ -420,7 +420,7 @@ class XmlHandler implements HandlerInterface
 		$imageNode->appendChild($uriAttribute);
 		$imageNode->appendChild($titleAttribute);
 		$imageNode->appendChild($alternativeAttribute);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
 		$parent->appendChild($imageNode);
 	}
@@ -436,7 +436,7 @@ class XmlHandler implements HandlerInterface
 		$hardAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_LINE_BREAK_HARD);
 		$hardAttribute->appendChild($this->document->createTextNode($hard));
 		$linebreakNode->appendChild($hardAttribute);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
 		$parent->appendChild($linebreakNode);
 	}
@@ -455,7 +455,7 @@ class XmlHandler implements HandlerInterface
 		$titleAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_LINK_TITLE);
 		$titleAttribute->appendChild($this->document->createTextNode($title));
 		$linkNode->appendChild($titleAttribute);
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
 		$parent->appendChild($linkNode);
 		$this->contentParents->push($linkNode);
@@ -481,7 +481,7 @@ class XmlHandler implements HandlerInterface
 		if (!empty($text)) {
 			$textNode->appendChild($this->createTextNode($text));
 		}
-		/** @var \DOMElement $parent */
+		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
 		$parent->appendChild($textNode);
 	}

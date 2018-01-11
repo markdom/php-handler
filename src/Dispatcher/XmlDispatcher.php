@@ -52,7 +52,7 @@ class XmlDispatcher implements DispatcherInterface
 		if (!$this->domDocument->hasChildNodes()) {
 			throw new DispatcherException('Markdom invalid');
 		}
-		/** @var \DOMElement $document */
+		/* @var \DOMElement $document */
 		$document = $this->domDocument->firstChild;
 		if (!$document->hasAttribute(KeyNameTranslator::ATTRIBUTE_DOCUMENT_VERSION)) {
 			throw new DispatcherException('Markdom invalid: no document version specified.');
@@ -82,7 +82,7 @@ class XmlDispatcher implements DispatcherInterface
 	private function processBlocks(\DOMNodeList $blocks)
 	{
 		for ($i = 0, $n = $blocks->length; $i < $n; $i++) {
-			/** @var \DOMElement $node */
+			/* @var \DOMElement $node */
 			$node = $blocks->item($i);
 			switch ($node->nodeName) {
 				case KeyNameTranslator::TYPE_CODE:
@@ -159,7 +159,7 @@ class XmlDispatcher implements DispatcherInterface
 	private function processContents(\DOMNodeList $contents)
 	{
 		for ($i = 0, $n = $contents->length; $i < $n; $i++) {
-			/** @var \DOMElement $node */
+			/* @var \DOMElement $node */
 			$node = $contents->item($i);
 			switch ($node->nodeName) {
 				case KeyNameTranslator::TYPE_CODE:
