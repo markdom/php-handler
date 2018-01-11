@@ -6,8 +6,8 @@ use Markdom\Common\BlockType;
 use Markdom\Common\EmphasisLevel;
 use Markdom\Handler\CommonmarkUtil\HandlerDelimiter;
 use Markdom\HandlerInterface\HandlerInterface;
-use Markenwerk\StringBuilder\StringBuilder;
 use Markenwerk\StackUtil\Stack;
+use Markenwerk\StringBuilder\StringBuilder;
 
 /**
  * Class CommonmarkHandler
