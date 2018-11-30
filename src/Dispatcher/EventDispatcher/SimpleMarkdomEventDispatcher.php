@@ -79,7 +79,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onDocumentBegin()
+	public function onDocumentBegin(): void
 	{
 		$this->markdomHandler->onDocumentBegin();
 		$this->onBlocksBegin();
@@ -88,7 +88,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onDocumentEnd()
+	public function onDocumentEnd(): void
 	{
 		$this->onBlocksEnd();
 		$this->markdomHandler->onDocumentEnd();
@@ -99,7 +99,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string $hint
 	 * @return void
 	 */
-	public function onCodeBlock($code, $hint = null)
+	public function onCodeBlock(string $code, ?string $hint = null): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_CODE);
 		$this->markdomHandler->onCodeBlock($code, $hint);
@@ -110,7 +110,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string $comment
 	 * @return void
 	 */
-	public function onCommentBlock($comment)
+	public function onCommentBlock(string $comment): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_COMMENT);
 		$this->markdomHandler->onCommentBlock($comment);
@@ -120,7 +120,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onDivisionBlock()
+	public function onDivisionBlock(): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_DIVISION);
 		$this->markdomHandler->onDivisionBlock();
@@ -131,7 +131,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockBegin($level)
+	public function onHeadingBlockBegin(int $level): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_HEADING);
 		$this->markdomHandler->onHeadingBlockBegin($level);
@@ -142,7 +142,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onHeadingBlockEnd()
+	public function onHeadingBlockEnd(): void
 	{
 		$this->onContentsEnd();
 		$this->markdomHandler->onHeadingBlockEnd($this->headingLevelStack->pop());
@@ -152,7 +152,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockBegin()
+	public function onUnorderedListBlockBegin(): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_UNORDERED_LIST);
 		$this->markdomHandler->onUnorderedListBlockBegin();
@@ -164,7 +164,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param int
 	 * @return void
 	 */
-	public function onOrderedListBlockBegin($startIndex)
+	public function onOrderedListBlockBegin(int $startIndex): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_ORDERED_LIST);
 		$this->markdomHandler->onOrderedListBlockBegin($startIndex);
@@ -176,7 +176,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onListItemBegin()
+	public function onListItemBegin(): void
 	{
 		if ($this->listHasChildStack->get() === true) {
 			$this->markdomHandler->onNextListItem();
@@ -189,7 +189,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onListItemEnd()
+	public function onListItemEnd(): void
 	{
 		$this->onBlocksEnd();
 		$this->markdomHandler->onListItemEnd();
@@ -198,7 +198,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockEnd()
+	public function onUnorderedListBlockEnd(): void
 	{
 		$this->listHasChildStack->pop();
 		$this->markdomHandler->onListItemsEnd();
@@ -209,7 +209,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onOrderedListBlockEnd()
+	public function onOrderedListBlockEnd(): void
 	{
 		$this->listHasChildStack->pop();
 		$this->markdomHandler->onListItemsEnd();
@@ -220,7 +220,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockBegin()
+	public function onParagraphBlockBegin(): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_PARAGRAPH);
 		$this->markdomHandler->onParagraphBlockBegin();
@@ -230,7 +230,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockEnd()
+	public function onParagraphBlockEnd(): void
 	{
 		$this->onContentsEnd();
 		$this->markdomHandler->onParagraphBlockEnd();
@@ -240,7 +240,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockBegin()
+	public function onQuoteBlockBegin(): void
 	{
 		$this->onBlockBegin(BlockType::TYPE_QUOTE);
 		$this->markdomHandler->onQuoteBlockBegin();
@@ -250,7 +250,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockEnd()
+	public function onQuoteBlockEnd(): void
 	{
 		$this->onBlocksEnd();
 		$this->markdomHandler->onQuoteBlockEnd();
@@ -261,7 +261,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string $code
 	 * @return void
 	 */
-	public function onCodeContent($code)
+	public function onCodeContent(string $code): void
 	{
 		$this->onContentBegin(ContentType::TYPE_CODE);
 		$this->markdomHandler->onCodeContent($code);
@@ -272,7 +272,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentBegin($level)
+	public function onEmphasisContentBegin(int $level): void
 	{
 		$this->onContentBegin(ContentType::TYPE_EMPHASIS);
 		$this->markdomHandler->onEmphasisContentBegin($level);
@@ -283,7 +283,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onEmphasisContentEnd()
+	public function onEmphasisContentEnd(): void
 	{
 		$this->onContentsEnd();
 		$this->markdomHandler->onEmphasisContentEnd($this->emphasisLevelStack->pop());
@@ -296,7 +296,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string $alternative
 	 * @return void
 	 */
-	public function onImageContent($uri, $title = null, $alternative = null)
+	public function onImageContent(string $uri, ?string $title = null, ?string $alternative = null): void
 	{
 		$this->onContentBegin(ContentType::TYPE_IMAGE);
 		$this->markdomHandler->onImageContent($uri, $title, $alternative);
@@ -307,7 +307,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param bool $hard
 	 * @return void
 	 */
-	public function onLineBreakContent($hard)
+	public function onLineBreakContent(bool $hard): void
 	{
 		$this->onContentBegin(ContentType::TYPE_LINE_BREAK);
 		$this->markdomHandler->onLineBreakContent($hard);
@@ -319,7 +319,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri, $title)
+	public function onLinkContentBegin(string $uri, string $title): void
 	{
 		$this->onContentBegin(ContentType::TYPE_LINK);
 		$this->markdomHandler->onLinkContentBegin($uri, $title);
@@ -331,7 +331,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	public function onLinkContentEnd()
+	public function onLinkContentEnd(): void
 	{
 		$this->onContentsEnd();
 		$this->markdomHandler->onLinkContentEnd($this->linkUriStack->pop(), $this->linkTitleStack->pop());
@@ -342,7 +342,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string $text
 	 * @return void
 	 */
-	public function onTextContent($text)
+	public function onTextContent(string $text): void
 	{
 		$this->onContentBegin(ContentType::TYPE_TEXT);
 		$this->markdomHandler->onTextContent($text);
@@ -352,7 +352,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	private function onBlocksBegin()
+	private function onBlocksBegin(): void
 	{
 		$this->markdomHandler->onBlocksBegin();
 		$this->blocksHasChildStack->push(false);
@@ -361,7 +361,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	private function onBlocksEnd()
+	private function onBlocksEnd(): void
 	{
 		$this->blocksHasChildStack->pop();
 		$this->markdomHandler->onBlocksEnd();
@@ -371,7 +371,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string
 	 * @return void
 	 */
-	private function onBlockBegin($type)
+	private function onBlockBegin(string $type): void
 	{
 		if ($this->blocksHasChildStack->get() === true) {
 			$this->markdomHandler->onNextBlock();
@@ -384,7 +384,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string
 	 * @return void
 	 */
-	private function onBlockEnd($type)
+	private function onBlockEnd(string $type): void
 	{
 		$this->markdomHandler->onBlockEnd($type);
 	}
@@ -392,7 +392,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	private function onContentsBegin()
+	private function onContentsBegin(): void
 	{
 		$this->markdomHandler->onContentsBegin();
 		$this->contentsHasChildStack->push(false);
@@ -401,7 +401,7 @@ final class SimpleMarkdomEventDispatcher
 	/**
 	 * @return void
 	 */
-	private function onContentsEnd()
+	private function onContentsEnd(): void
 	{
 		$this->contentsHasChildStack->pop();
 		$this->markdomHandler->onContentsEnd();
@@ -411,7 +411,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string
 	 * @return void
 	 */
-	private function onContentBegin($type)
+	private function onContentBegin(string $type): void
 	{
 		if ($this->contentsHasChildStack->get() === true) {
 			$this->markdomHandler->onNextContent();
@@ -424,7 +424,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string
 	 * @return void
 	 */
-	private function onContentEnd($type)
+	private function onContentEnd(string $type): void
 	{
 		$this->markdomHandler->onContentEnd($type);
 	}

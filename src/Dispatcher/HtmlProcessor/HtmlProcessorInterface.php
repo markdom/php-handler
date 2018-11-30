@@ -19,13 +19,13 @@ interface HtmlProcessorInterface
 	 * @param HandlerInterface $markdomHandler
 	 * @return void
 	 */
-	public function handleHtmlBlock(HtmlBlock $htmlBlock, HandlerInterface $markdomHandler);
+	public function handleHtmlBlock(HtmlBlock $htmlBlock, HandlerInterface $markdomHandler): void;
 
 	/**
 	 * @param HtmlInline $htmlInline
 	 * @param HandlerInterface $markdomHandler
 	 * @return void
 	 */
-	public function handleInlineHtml(HtmlInline $htmlInline, HandlerInterface $markdomHandler);
+	public function handleInlineHtml(HtmlInline $htmlInline, HandlerInterface $markdomHandler): void;
 
 }

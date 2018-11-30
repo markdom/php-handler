@@ -20,7 +20,7 @@ class XhtmlTagBuilder extends HtmlTagBuilder
 	 * @return string
 	 * @throws HandlerException
 	 */
-	public function buildTag($type, $value = null, array $attributes = array(), $variant = null)
+	public function buildTag(string $type, ?string $value = null, ?array $attributes = array(), ?string $variant = null): string
 	{
 		switch ($type) {
 			case self::TYPE_DIVISION:

@@ -21,7 +21,7 @@ class HtmlTagBuilder implements TagBuilderInterface
 	 * @return string
 	 * @throws HandlerException
 	 */
-	public function buildTag($type, $value = null, array $attributes = array(), $variant = null)
+	public function buildTag(string $type, ?string $value = null, ?array $attributes = array(), ?string $variant = null): string
 	{
 		switch ($type) {
 			case self::TYPE_CODE_BLOCK:
@@ -110,7 +110,7 @@ class HtmlTagBuilder implements TagBuilderInterface
 	 * @param array $attributes
 	 * @return string
 	 */
-	protected function getAttributeString(array $attributes)
+	protected function getAttributeString(array $attributes): string
 	{
 		$attributeParts = array();
 		foreach ($attributes as $key => &$value) {

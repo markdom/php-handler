@@ -76,10 +76,8 @@ final class MarkdomEventBridge
 			} else {
 				$this->transmitInlineBeginEvent($node);
 			}
-		} else {
-			if ($node->isContainer()) {
-				$this->transmitContainerEndEvent($node);
-			}
+		} else if ($node->isContainer()) {
+			$this->transmitContainerEndEvent($node);
 		}
 		return $this;
 	}
@@ -106,7 +104,7 @@ final class MarkdomEventBridge
 	 * @param string $type
 	 * @return $this
 	 */
-	private function dispatchBlockBeginEvents($type)
+	private function dispatchBlockBeginEvents(string $type)
 	{
 		$this->markdomHandler->onBlockBegin($type);
 		return $this;
@@ -117,7 +115,7 @@ final class MarkdomEventBridge
 	 * @param string $type
 	 * @return $this
 	 */
-	private function dispatchBlockEndEvents($node, $type)
+	private function dispatchBlockEndEvents(Node $node, string $type)
 	{
 		$this->markdomHandler->onBlockEnd($type);
 		if (!is_null($node->next())) {
@@ -130,7 +128,7 @@ final class MarkdomEventBridge
 	 * @param string $type
 	 * @return $this
 	 */
-	private function dispatchContentBeginEvents($type)
+	private function dispatchContentBeginEvents(string $type)
 	{
 		$this->markdomHandler->onContentBegin($type);
 		return $this;
@@ -141,7 +139,7 @@ final class MarkdomEventBridge
 	 * @param string $type
 	 * @return $this
 	 */
-	private function dispatchContentEndEvents($node, $type)
+	private function dispatchContentEndEvents(Node $node, string $type)
 	{
 		$this->markdomHandler->onContentEnd($type);
 		if (!is_null($node->next())) {
@@ -170,9 +168,10 @@ final class MarkdomEventBridge
 
 	/**
 	 * @param Node $node
+	 * @return void
 	 * @throws DispatcherException
 	 */
-	private function transmitContainerBeginEvent(Node $node)
+	private function transmitContainerBeginEvent(Node $node): void
 	{
 		switch (get_class($node)) {
 			case DocumentProcessor::BLOCK_NODE_BLOCK_QUOTE:
@@ -286,9 +285,10 @@ final class MarkdomEventBridge
 
 	/**
 	 * @param Node $node
+	 * @return void
 	 * @throws DispatcherException
 	 */
-	private function transmitContainerEndEvent(Node $node)
+	private function transmitContainerEndEvent(Node $node): void
 	{
 		switch (get_class($node)) {
 			case DocumentProcessor::BLOCK_NODE_BLOCK_QUOTE:
@@ -377,9 +377,10 @@ final class MarkdomEventBridge
 
 	/**
 	 * @param Node $node
+	 * @return void
 	 * @throws DispatcherException
 	 */
-	private function transmitInlineBeginEvent(Node $node)
+	private function transmitInlineBeginEvent(Node $node): void
 	{
 		switch (get_class($node)) {
 			case DocumentProcessor::INLINE_NODE_CODE:
@@ -412,7 +413,7 @@ final class MarkdomEventBridge
 	/**
 	 * @throws DispatcherException
 	 */
-	private function transmitInlineEndEvent()
+	private function transmitInlineEndEvent(): void
 	{
 		if (is_null($this->recentInlineNode)) {
 			return;

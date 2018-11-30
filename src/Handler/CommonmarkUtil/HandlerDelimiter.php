@@ -25,7 +25,7 @@ final class HandlerDelimiter
 	 *
 	 * @param string $literal
 	 */
-	public function __construct($literal)
+	public function __construct(string $literal)
 	{
 		$this->literal = $literal;
 	}
@@ -33,7 +33,7 @@ final class HandlerDelimiter
 	/**
 	 * @return string
 	 */
-	public function getLiteral()
+	public function getLiteral(): string
 	{
 		return $this->literal;
 	}
@@ -41,7 +41,7 @@ final class HandlerDelimiter
 	/**
 	 * @return bool
 	 */
-	public function isEmpty()
+	public function isEmpty(): bool
 	{
 		return $this->empty;
 	}
@@ -50,7 +50,7 @@ final class HandlerDelimiter
 	 * @param bool $empty
 	 * @return $this
 	 */
-	public function setEmpty($empty)
+	public function setEmpty(bool $empty)
 	{
 		$this->empty = $empty;
 		return $this;

@@ -21,7 +21,7 @@ class HtmlTextProcessor implements HtmlProcessorInterface
 	 * @param HandlerInterface $markdomHandler
 	 * @return void
 	 */
-	public function handleHtmlBlock(HtmlBlock $htmlBlock, HandlerInterface $markdomHandler)
+	public function handleHtmlBlock(HtmlBlock $htmlBlock, HandlerInterface $markdomHandler): void
 	{
 		$plaintext = strip_tags($htmlBlock->getStringContent());
 		$markdomHandler->onBlockBegin(BlockType::TYPE_PARAGRAPH);
@@ -40,7 +40,7 @@ class HtmlTextProcessor implements HtmlProcessorInterface
 	 * @param HandlerInterface $markdomHandler
 	 * @return void
 	 */
-	public function handleInlineHtml(HtmlInline $htmlInline, HandlerInterface $markdomHandler)
+	public function handleInlineHtml(HtmlInline $htmlInline, HandlerInterface $markdomHandler): void
 	{
 	}
 

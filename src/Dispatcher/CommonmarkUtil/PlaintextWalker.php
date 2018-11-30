@@ -59,7 +59,7 @@ final class PlaintextWalker
 	/**
 	 * @return string
 	 */
-	public function getPlaintext()
+	public function getPlaintext(): string
 	{
 		return $this->plaintextBuilder->build();
 	}
@@ -68,7 +68,7 @@ final class PlaintextWalker
 	 * @param string $plaintext
 	 * @return $this
 	 */
-	private function appendPlaintext($plaintext)
+	private function appendPlaintext(string $plaintext)
 	{
 		$this->plaintextBuilder->append($plaintext);
 		return $this;

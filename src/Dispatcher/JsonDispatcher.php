@@ -15,7 +15,7 @@ class JsonDispatcher extends PhpObjectDispatcher
 	 *
 	 * @param string $jsonString
 	 */
-	public function __construct($jsonString)
+	public function __construct(string $jsonString)
 	{
 		$markdomObject = json_decode($jsonString);
 		parent::__construct($markdomObject);

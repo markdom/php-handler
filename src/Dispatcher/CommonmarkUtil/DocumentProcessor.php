@@ -18,27 +18,27 @@ use Markenwerk\StackUtil\Stack;
 final class DocumentProcessor implements DocumentProcessorInterface
 {
 
-	const BLOCK_NODE_BLOCK_QUOTE = 'League\CommonMark\Block\Element\BlockQuote';
-	const BLOCK_NODE_DOCUMENT = 'League\CommonMark\Block\Element\Document';
-	const BLOCK_NODE_EMPHASIS = 'League\CommonMark\Inline\Element\Emphasis';
-	const BLOCK_NODE_FENCED_CODE = 'League\CommonMark\Block\Element\FencedCode';
-	const BLOCK_NODE_HEADING = 'League\CommonMark\Block\Element\Heading';
-	const BLOCK_NODE_HTML_BLOCK = 'League\CommonMark\Block\Element\HtmlBlock';
-	const BLOCK_NODE_IMAGE = 'League\CommonMark\Inline\Element\Image';
-	const BLOCK_NODE_INDENTED_CODE = 'League\CommonMark\Block\Element\IndentedCode';
-	const BLOCK_NODE_INLINE_CONTAINER = 'League\CommonMark\Block\Element\InlineContainer';
-	const BLOCK_NODE_LINK = 'League\CommonMark\Inline\Element\Link';
-	const BLOCK_NODE_LIST_BLOCK = 'League\CommonMark\Block\Element\ListBlock';
-	const BLOCK_NODE_LIST_DATA = 'League\CommonMark\Block\Element\ListData';
-	const BLOCK_NODE_LIST_ITEM = 'League\CommonMark\Block\Element\ListItem';
-	const BLOCK_NODE_PARAGRAPH = 'League\CommonMark\Block\Element\Paragraph';
-	const BLOCK_NODE_STRONG = 'League\CommonMark\Inline\Element\Strong';
-	const BLOCK_NODE_THEMATIC_BREAK = 'League\CommonMark\Block\Element\ThematicBreak';
+	public const BLOCK_NODE_BLOCK_QUOTE = 'League\CommonMark\Block\Element\BlockQuote';
+	public const BLOCK_NODE_DOCUMENT = 'League\CommonMark\Block\Element\Document';
+	public const BLOCK_NODE_EMPHASIS = 'League\CommonMark\Inline\Element\Emphasis';
+	public const BLOCK_NODE_FENCED_CODE = 'League\CommonMark\Block\Element\FencedCode';
+	public const BLOCK_NODE_HEADING = 'League\CommonMark\Block\Element\Heading';
+	public const BLOCK_NODE_HTML_BLOCK = 'League\CommonMark\Block\Element\HtmlBlock';
+	public const BLOCK_NODE_IMAGE = 'League\CommonMark\Inline\Element\Image';
+	public const BLOCK_NODE_INDENTED_CODE = 'League\CommonMark\Block\Element\IndentedCode';
+	public const BLOCK_NODE_INLINE_CONTAINER = 'League\CommonMark\Block\Element\InlineContainer';
+	public const BLOCK_NODE_LINK = 'League\CommonMark\Inline\Element\Link';
+	public const BLOCK_NODE_LIST_BLOCK = 'League\CommonMark\Block\Element\ListBlock';
+	public const BLOCK_NODE_LIST_DATA = 'League\CommonMark\Block\Element\ListData';
+	public const BLOCK_NODE_LIST_ITEM = 'League\CommonMark\Block\Element\ListItem';
+	public const BLOCK_NODE_PARAGRAPH = 'League\CommonMark\Block\Element\Paragraph';
+	public const BLOCK_NODE_STRONG = 'League\CommonMark\Inline\Element\Strong';
+	public const BLOCK_NODE_THEMATIC_BREAK = 'League\CommonMark\Block\Element\ThematicBreak';
 
-	const INLINE_NODE_CODE = 'League\CommonMark\Inline\Element\Code';
-	const INLINE_NODE_HTML_INLINE = 'League\CommonMark\Inline\Element\HtmlInline';
-	const INLINE_NODE_NEWLINE = 'League\CommonMark\Inline\Element\Newline';
-	const INLINE_NODE_TEXT = 'League\CommonMark\Inline\Element\Text';
+	public const INLINE_NODE_CODE = 'League\CommonMark\Inline\Element\Code';
+	public const INLINE_NODE_HTML_INLINE = 'League\CommonMark\Inline\Element\HtmlInline';
+	public const INLINE_NODE_NEWLINE = 'League\CommonMark\Inline\Element\Newline';
+	public const INLINE_NODE_TEXT = 'League\CommonMark\Inline\Element\Text';
 
 	/**
 	 * @var HandlerInterface
@@ -78,7 +78,7 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	 * @return void
 	 * @throws DispatcherException
 	 */
-	public function processDocument(Document $document)
+	public function processDocument(Document $document): void
 	{
 		$markdomHandlerEventDispatcher = new MarkdomEventBridge(
 			$this->markdomHandler,

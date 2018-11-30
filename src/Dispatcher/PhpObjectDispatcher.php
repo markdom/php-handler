@@ -52,7 +52,7 @@ class PhpObjectDispatcher implements DispatcherInterface
 		if (!isset($this->document->version) || !is_object($this->document->version)) {
 			throw new DispatcherException('Markdom invalid: no document version specified.');
 		}
-		if (!isset($this->document->version->major) || !isset($this->document->version->minor)) {
+		if (!isset($this->document->version->major, $this->document->version->minor)) {
 			throw new DispatcherException('Markdom invalid: no document valid version specified.');
 		}
 		if ((int)$this->document->version->major !== 1 || (int)$this->document->version->minor !== 0) {
@@ -67,7 +67,7 @@ class PhpObjectDispatcher implements DispatcherInterface
 	/**
 	 * @return bool
 	 */
-	public function isReusable()
+	public function isReusable():bool
 	{
 		return true;
 	}
@@ -89,7 +89,7 @@ class PhpObjectDispatcher implements DispatcherInterface
 			}
 			switch ($node->type) {
 				case KeyNameTranslator::TYPE_CODE:
-					$hint = isset($node->hint) ? $node->hint : null;
+					$hint = $node->hint ?? null;
 					$this->eventDispatcher->onCodeBlock($node->code, $hint);
 					break;
 				case KeyNameTranslator::TYPE_COMMENT:
@@ -175,15 +175,15 @@ class PhpObjectDispatcher implements DispatcherInterface
 					$this->eventDispatcher->onEmphasisContentEnd();
 					break;
 				case KeyNameTranslator::TYPE_IMAGE:
-					$title = isset($node->title) ? $node->title : null;
-					$alternative = isset($node->alternative) ? $node->alternative : null;
+					$title = $node->title ?? null;
+					$alternative = $node->alternative ?? null;
 					$this->eventDispatcher->onImageContent($node->uri, $title, $alternative);
 					break;
 				case KeyNameTranslator::TYPE_LINE_BREAK:
 					$this->eventDispatcher->onLineBreakContent($node->hard);
 					break;
 				case KeyNameTranslator::TYPE_LINK:
-					$title = isset($node->title) ? $node->title : null;
+					$title = $node->title ?? null;
 					$this->eventDispatcher->onLinkContentBegin($node->uri, $title);
 					$this->processContents($node->contents);
 					$this->eventDispatcher->onLinkContentEnd();

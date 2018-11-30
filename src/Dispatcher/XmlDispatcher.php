@@ -69,7 +69,7 @@ class XmlDispatcher implements DispatcherInterface
 	/**
 	 * @return bool
 	 */
-	public function isReusable()
+	public function isReusable(): bool
 	{
 		return true;
 	}
@@ -219,7 +219,7 @@ class XmlDispatcher implements DispatcherInterface
 	 * @param string $xmlAttributeValue
 	 * @return bool
 	 */
-	private function translateBoolean($xmlAttributeValue)
+	private function translateBoolean($xmlAttributeValue): bool
 	{
 		return mb_strtolower($xmlAttributeValue) === 'true';
 	}

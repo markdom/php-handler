@@ -32,7 +32,7 @@ class CommonmarkDispatcher implements DispatcherInterface
 	 *
 	 * @param string $commonmarkString
 	 */
-	public function __construct($commonmarkString)
+	public function __construct(string $commonmarkString)
 	{
 		$this->commonmarkString = $commonmarkString;
 	}
@@ -40,7 +40,7 @@ class CommonmarkDispatcher implements DispatcherInterface
 	/**
 	 * @return HtmlProcessorInterface
 	 */
-	public function getHtmlProcessor()
+	public function getHtmlProcessor():HtmlProcessorInterface
 	{
 		return $this->htmlProcessor;
 	}
@@ -49,7 +49,7 @@ class CommonmarkDispatcher implements DispatcherInterface
 	 * @param HtmlProcessorInterface $htmlProcessor
 	 * @return $this
 	 */
-	public function setHtmlProcessor($htmlProcessor)
+	public function setHtmlProcessor(HtmlProcessorInterface $htmlProcessor)
 	{
 		$this->htmlProcessor = $htmlProcessor;
 		return $this;
@@ -58,7 +58,7 @@ class CommonmarkDispatcher implements DispatcherInterface
 	/**
 	 * @return bool
 	 */
-	public function isReusable()
+	public function isReusable():bool
 	{
 		return true;
 	}

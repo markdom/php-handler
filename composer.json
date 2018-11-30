@@ -1,34 +1,37 @@
 {
-  "name": "markdom/handler",
-  "type": "library",
-  "description": "Handler and dispatcher implementations written in PHP",
-  "keywords": [
-    "Markdom",
-    "Handler",
-    "Dispatcher"
-  ],
-  "homepage": "http://markenwerk.net/",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Martin Brecht-Precht",
-      "email": "mb@markenwerk.net",
-      "homepage": "http://markenwerk.net"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Markdom\\Handler\\": "src/Handler",
-      "Markdom\\Dispatcher\\": "src/Dispatcher"
-    }
-  },
-  "require": {
-    "php": ">=5.3",
-    "markdom/handler-interface": "^1.0.10",
-    "markenwerk/stack-util": "~1.0",
-    "markenwerk/string-builder": "^1.0.4",
-    "markenwerk/json-pretty-printer": "~1.0",
-    "mustangostang/spyc": ">=0.6.1",
-    "league/commonmark": "^0.13"
-  }
+	"name": "markdom/handler",
+	"type": "library",
+	"description": "Handler and dispatcher implementations written in PHP",
+	"keywords": [
+		"Markdom",
+		"Handler",
+		"Dispatcher"
+	],
+	"homepage": "http://markenwerk.net/",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Martin Brecht-Precht",
+			"email": "mb@markenwerk.net",
+			"homepage": "http://markenwerk.net"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Markdom\\Handler\\": "src/Handler",
+			"Markdom\\Dispatcher\\": "src/Dispatcher"
+		}
+	},
+	"require": {
+		"php": "^7.1",
+		"ext-dom": "*",
+		"ext-json": "*",
+		"ext-mbstring": "*",
+		"markdom/handler-interface": "^1.1.0",
+		"markenwerk/stack-util": "~1.0",
+		"markenwerk/string-builder": "^1.0.4",
+		"markenwerk/json-pretty-printer": "~1.0",
+		"mustangostang/spyc": ">=0.6.1",
+		"league/commonmark": "^0.13"
+	}
 }
