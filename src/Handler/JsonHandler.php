@@ -2,8 +2,6 @@
 
 namespace Markdom\Handler;
 
-use Markenwerk\JsonPrettyPrinter\JsonPrettyPrinter;
-
 /**
  * Class JsonHandler
  *
@@ -25,7 +23,7 @@ class JsonHandler extends PhpObjectHandler
 	/**
 	 * @return bool
 	 */
-	public function getPrettyPrint()
+	public function getPrettyPrint(): bool
 	{
 		return $this->prettyPrint;
 	}
@@ -34,7 +32,7 @@ class JsonHandler extends PhpObjectHandler
 	 * @param bool $prettyPrint
 	 * @return $this
 	 */
-	public function setPrettyPrint($prettyPrint)
+	public function setPrettyPrint(bool $prettyPrint)
 	{
 		$this->prettyPrint = $prettyPrint;
 		return $this;
@@ -43,7 +41,7 @@ class JsonHandler extends PhpObjectHandler
 	/**
 	 * @return bool
 	 */
-	public function getEscapeUnicode()
+	public function getEscapeUnicode(): bool
 	{
 		return $this->escapeUnicode;
 	}
@@ -52,7 +50,7 @@ class JsonHandler extends PhpObjectHandler
 	 * @param bool $escapeUnicode
 	 * @return $this
 	 */
-	public function setEscapeUnicode($escapeUnicode)
+	public function setEscapeUnicode(bool $escapeUnicode)
 	{
 		$this->escapeUnicode = $escapeUnicode;
 		return $this;
@@ -61,26 +59,15 @@ class JsonHandler extends PhpObjectHandler
 	/**
 	 * @return string
 	 */
-	public function getResult()
+	public function getResult(): string
 	{
 		if ($this->prettyPrint) {
-			if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-				if ($this->escapeUnicode) {
-					$options = JSON_PRETTY_PRINT;
-				} else {
-					$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
-				}
-				return json_encode(parent::getResult(), $options);
-			}
 			if ($this->escapeUnicode) {
-				$jsonString = json_encode(parent::getResult());
+				$options = JSON_PRETTY_PRINT;
 			} else {
-				$jsonString = json_encode(parent::getResult(), JSON_UNESCAPED_UNICODE);
+				$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
 			}
-			$prettyPrinter = new JsonPrettyPrinter();
-			return $prettyPrinter
-				->setIndentationString('  ')
-				->prettyPrint($jsonString);
+			return json_encode(parent::getResult(), $options);
 		}
 		if ($this->escapeUnicode) {
 			return json_encode(parent::getResult());

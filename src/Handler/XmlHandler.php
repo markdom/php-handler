@@ -47,7 +47,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return bool
 	 */
-	public function getHandleComments()
+	public function getHandleComments(): bool
 	{
 		return $this->handleComments;
 	}
@@ -56,7 +56,7 @@ class XmlHandler implements HandlerInterface
 	 * @param bool $handleComments
 	 * @return $this
 	 */
-	public function setHandleComments($handleComments)
+	public function setHandleComments(bool $handleComments)
 	{
 		$this->handleComments = $handleComments;
 		return $this;
@@ -65,7 +65,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return bool
 	 */
-	public function getPrettyPrint()
+	public function getPrettyPrint(): bool
 	{
 		return $this->prettyPrint;
 	}
@@ -74,7 +74,7 @@ class XmlHandler implements HandlerInterface
 	 * @param bool $prettyPrint
 	 * @return $this
 	 */
-	public function setPrettyPrint($prettyPrint)
+	public function setPrettyPrint(bool $prettyPrint)
 	{
 		$this->prettyPrint = $prettyPrint;
 		return $this;
@@ -83,7 +83,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDocumentBegin()
+	public function onDocumentBegin(): void
 	{
 		$this->listBlocks = new Stack();
 		$this->blockParents = new Stack();
@@ -107,7 +107,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDocumentEnd()
+	public function onDocumentEnd(): void
 	{
 		$this->blockParents->pop();
 	}
@@ -115,7 +115,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onBlocksBegin()
+	public function onBlocksBegin(): void
 	{
 	}
 
@@ -123,7 +123,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockBegin($type)
+	public function onBlockBegin(string $type): void
 	{
 	}
 
@@ -132,7 +132,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $hint
 	 * @return void
 	 */
-	public function onCodeBlock($code, $hint = null)
+	public function onCodeBlock(string $code, ?string $hint = null): void
 	{
 		$codeNode = $this->document->createElement(KeyNameTranslator::TYPE_CODE);
 		if (!empty($code)) {
@@ -150,7 +150,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $comment
 	 * @return void
 	 */
-	public function onCommentBlock($comment)
+	public function onCommentBlock(string $comment): void
 	{
 		if (!$this->getHandleComments()) {
 			return;
@@ -167,7 +167,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDivisionBlock()
+	public function onDivisionBlock(): void
 	{
 		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
@@ -178,7 +178,7 @@ class XmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockBegin($level)
+	public function onHeadingBlockBegin(int $level): void
 	{
 		$headingNode = $this->document->createElement(KeyNameTranslator::TYPE_HEADING);
 		$levelAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_HEADING_LEVEL);
@@ -194,7 +194,7 @@ class XmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockEnd($level)
+	public function onHeadingBlockEnd(int $level): void
 	{
 		$this->contentParents->pop();
 	}
@@ -202,7 +202,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockBegin()
+	public function onUnorderedListBlockBegin(): void
 	{
 		$listNode = $this->document->createElement(KeyNameTranslator::TYPE_UNORDERED_LIST);
 		/* @var \DOMElement $parent */
@@ -215,7 +215,7 @@ class XmlHandler implements HandlerInterface
 	 * @param int $startIndex
 	 * @return void
 	 */
-	public function onOrderedListBlockBegin($startIndex)
+	public function onOrderedListBlockBegin(int $startIndex): void
 	{
 		$listNode = $this->document->createElement(KeyNameTranslator::TYPE_ORDERED_LIST);
 		$startIndexAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_ORDERED_LIST_START_INDEX);
@@ -230,14 +230,14 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemsBegin()
+	public function onListItemsBegin(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onListItemBegin()
+	public function onListItemBegin(): void
 	{
 		$listItemNode = $this->document->createElement(KeyNameTranslator::TYPE_LIST_ITEM);
 		/* @var \DOMElement $parent */
@@ -249,7 +249,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemEnd()
+	public function onListItemEnd(): void
 	{
 		$this->blockParents->pop();
 	}
@@ -257,21 +257,21 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onNextListItem()
+	public function onNextListItem(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onListItemsEnd()
+	public function onListItemsEnd(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockEnd()
+	public function onUnorderedListBlockEnd(): void
 	{
 		$this->listBlocks->pop();
 	}
@@ -280,7 +280,7 @@ class XmlHandler implements HandlerInterface
 	 * @param int
 	 * @return void
 	 */
-	public function onOrderedListBlockEnd($startIndex)
+	public function onOrderedListBlockEnd(int $startIndex): void
 	{
 		$this->listBlocks->pop();
 	}
@@ -288,7 +288,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockBegin()
+	public function onParagraphBlockBegin(): void
 	{
 		$paragraphNode = $this->document->createElement(KeyNameTranslator::TYPE_PARAGRAPH);
 		/* @var \DOMElement $parent */
@@ -300,7 +300,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockEnd()
+	public function onParagraphBlockEnd(): void
 	{
 		$this->contentParents->pop();
 	}
@@ -308,7 +308,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockBegin()
+	public function onQuoteBlockBegin(): void
 	{
 		$quoteNode = $this->document->createElement(KeyNameTranslator::TYPE_QUOTE);
 		/* @var \DOMElement $parent */
@@ -320,7 +320,7 @@ class XmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockEnd()
+	public function onQuoteBlockEnd(): void
 	{
 		$this->blockParents->pop();
 	}
@@ -329,28 +329,28 @@ class XmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockEnd($type)
+	public function onBlockEnd(string $type): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onNextBlock()
+	public function onNextBlock(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onBlocksEnd()
+	public function onBlocksEnd(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onContentsBegin()
+	public function onContentsBegin(): void
 	{
 	}
 
@@ -358,7 +358,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentBegin($type)
+	public function onContentBegin(string $type): void
 	{
 	}
 
@@ -366,7 +366,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $code
 	 * @return void
 	 */
-	public function onCodeContent($code)
+	public function onCodeContent(string $code): void
 	{
 		$codeNode = $this->document->createElement(KeyNameTranslator::TYPE_CODE);
 		if (!empty($code)) {
@@ -381,7 +381,7 @@ class XmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentBegin($level)
+	public function onEmphasisContentBegin(int $level): void
 	{
 		$emphasisNode = $this->document->createElement(KeyNameTranslator::TYPE_EMPHASIS);
 		$levelAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_EMPHASIS_LEVEL);
@@ -397,7 +397,7 @@ class XmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentEnd($level)
+	public function onEmphasisContentEnd(int $level): void
 	{
 		$this->contentParents->pop();
 	}
@@ -408,7 +408,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $alternative
 	 * @return void
 	 */
-	public function onImageContent($uri, $title = null, $alternative = null)
+	public function onImageContent(string $uri, ?string $title = null, ?string $alternative = null): void
 	{
 		$imageNode = $this->document->createElement(KeyNameTranslator::TYPE_IMAGE);
 		$uriAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_IMAGE_URI);
@@ -429,7 +429,7 @@ class XmlHandler implements HandlerInterface
 	 * @param bool $hard
 	 * @return void
 	 */
-	public function onLineBreakContent($hard)
+	public function onLineBreakContent(bool $hard): void
 	{
 		$hard = $hard ? 'true' : 'false';
 		$linebreakNode = $this->document->createElement(KeyNameTranslator::TYPE_LINE_BREAK);
@@ -446,7 +446,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri, $title = null)
+	public function onLinkContentBegin(string $uri, ?string $title = null): void
 	{
 		$linkNode = $this->document->createElement(KeyNameTranslator::TYPE_LINK);
 		$uriAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_LINK_URI);
@@ -466,7 +466,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri, $title = null)
+	public function onLinkContentEnd(string $uri, ?string $title = null): void
 	{
 		$this->contentParents->pop();
 	}
@@ -475,7 +475,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $text
 	 * @return void
 	 */
-	public function onTextContent($text)
+	public function onTextContent(string $text): void
 	{
 		$textNode = $this->document->createElement(KeyNameTranslator::TYPE_TEXT);
 		if (!empty($text)) {
@@ -490,28 +490,28 @@ class XmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentEnd($type)
+	public function onContentEnd(string $type): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onNextContent()
+	public function onNextContent(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onContentsEnd()
+	public function onContentsEnd(): void
 	{
 	}
 
 	/**
 	 * @return \DOMDocument
 	 */
-	public function getResult()
+	public function getResult(): \DOMDocument
 	{
 		return $this->document;
 	}
@@ -520,7 +520,7 @@ class XmlHandler implements HandlerInterface
 	 * @param string $text
 	 * @return \DOMText
 	 */
-	private function createTextNode($text)
+	private function createTextNode(string $text): \DOMText
 	{
 		if (
 			mb_strpos($text, PHP_EOL) !== false

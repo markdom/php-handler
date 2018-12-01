@@ -23,7 +23,7 @@ class YamlHandler extends PhpObjectHandler
 	/**
 	 * @return bool
 	 */
-	public function getPrettyPrint()
+	public function getPrettyPrint(): bool
 	{
 		return $this->prettyPrint;
 	}
@@ -32,7 +32,7 @@ class YamlHandler extends PhpObjectHandler
 	 * @param bool $prettyPrint
 	 * @return $this
 	 */
-	public function setPrettyPrint($prettyPrint)
+	public function setPrettyPrint(bool $prettyPrint)
 	{
 		$this->prettyPrint = $prettyPrint;
 		return $this;
@@ -41,7 +41,7 @@ class YamlHandler extends PhpObjectHandler
 	/**
 	 * @return bool
 	 */
-	public function getWordWrap()
+	public function getWordWrap(): bool
 	{
 		return $this->wordWrap;
 	}
@@ -50,7 +50,7 @@ class YamlHandler extends PhpObjectHandler
 	 * @param bool $wordWrap
 	 * @return $this
 	 */
-	public function setWordWrap($wordWrap)
+	public function setWordWrap(bool $wordWrap)
 	{
 		$this->wordWrap = $wordWrap;
 		return $this;
@@ -59,7 +59,7 @@ class YamlHandler extends PhpObjectHandler
 	/**
 	 * @return string
 	 */
-	public function getResult()
+	public function getResult(): string
 	{
 		$indent = ($this->prettyPrint !== false) ? 4 : false;
 		/* @noinspection PhpUndefinedClassInspection */

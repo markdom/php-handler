@@ -64,7 +64,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return bool
 	 */
-	public function getHandleComments()
+	public function getHandleComments(): bool
 	{
 		return $this->handleComments;
 	}
@@ -73,7 +73,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param bool $handleComments
 	 * @return $this
 	 */
-	public function setHandleComments($handleComments)
+	public function setHandleComments(bool $handleComments)
 	{
 		$this->handleComments = $handleComments;
 		return $this;
@@ -82,7 +82,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return TagBuilderInterface
 	 */
-	public function getTagBuilder()
+	public function getTagBuilder(): TagBuilderInterface
 	{
 		return $this->tagBuilder;
 	}
@@ -91,7 +91,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param TagBuilderInterface $tagBuilder
 	 * @return $this
 	 */
-	public function setTagBuilder($tagBuilder)
+	public function setTagBuilder(TagBuilderInterface $tagBuilder)
 	{
 		$this->tagBuilder = $tagBuilder;
 		return $this;
@@ -100,7 +100,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return bool
 	 */
-	public function getEscapeHtml()
+	public function getEscapeHtml(): bool
 	{
 		return $this->escapeHtml;
 	}
@@ -109,7 +109,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param bool $escapeHtml
 	 * @return $this
 	 */
-	public function setEscapeHtml($escapeHtml)
+	public function setEscapeHtml(bool $escapeHtml)
 	{
 		$this->escapeHtml = $escapeHtml;
 		return $this;
@@ -118,7 +118,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return bool
 	 */
-	public function getBreakSoftBreaks()
+	public function getBreakSoftBreaks(): bool
 	{
 		return $this->breakSoftBreaks;
 	}
@@ -127,7 +127,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param bool $breakSoftBreaks
 	 * @return $this
 	 */
-	public function setBreakSoftBreaks($breakSoftBreaks)
+	public function setBreakSoftBreaks(bool $breakSoftBreaks)
 	{
 		$this->breakSoftBreaks = $breakSoftBreaks;
 		return $this;
@@ -136,7 +136,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return StringBuilder
 	 */
-	public function getHtmlBuilder()
+	public function getHtmlBuilder(): StringBuilder
 	{
 		return $this->htmlBuilder;
 	}
@@ -144,7 +144,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return Stack
 	 */
-	public function getBlockStack()
+	public function getBlockStack(): Stack
 	{
 		return $this->blockStack;
 	}
@@ -152,21 +152,21 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDocumentBegin()
+	public function onDocumentBegin(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onDocumentEnd()
+	public function onDocumentEnd(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onBlocksBegin()
+	public function onBlocksBegin(): void
 	{
 	}
 
@@ -174,7 +174,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockBegin($type)
+	public function onBlockBegin(string $type): void
 	{
 		if ($this->htmlBuilder->size() > 0) {
 			$this->htmlBuilder->append(self::LINE_BREAK);
@@ -187,7 +187,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $hint
 	 * @return void
 	 */
-	public function onCodeBlock($code, $hint = null)
+	public function onCodeBlock(string $code, ?string $hint = null): void
 	{
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
@@ -199,10 +199,10 @@ class HtmlHandler implements HandlerInterface
 	}
 
 	/**
-	 * @param $comment
+	 * @param string $comment
 	 * @return void
 	 */
-	public function onCommentBlock($comment)
+	public function onCommentBlock(string $comment): void
 	{
 		if (!$this->getHandleComments()) {
 			return;
@@ -218,7 +218,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDivisionBlock()
+	public function onDivisionBlock(): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_DIVISION));
 	}
@@ -227,7 +227,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockBegin($level)
+	public function onHeadingBlockBegin(int $level): void
 	{
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
@@ -243,7 +243,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockEnd($level)
+	public function onHeadingBlockEnd(int $level): void
 	{
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
@@ -258,7 +258,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockBegin()
+	public function onUnorderedListBlockBegin(): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_UNORDERED_LIST_BEGIN));
 	}
@@ -267,7 +267,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param int $startIndex
 	 * @return void
 	 */
-	public function onOrderedListBlockBegin($startIndex)
+	public function onOrderedListBlockBegin(int $startIndex): void
 	{
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
@@ -281,14 +281,14 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemsBegin()
+	public function onListItemsBegin(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onListItemBegin()
+	public function onListItemBegin(): void
 	{
 		$this->htmlBuilder
 			->append(self::LINE_BREAK)
@@ -299,7 +299,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemEnd()
+	public function onListItemEnd(): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_LIST_ITEM_END));
 		$this->blockStack->pop();
@@ -308,14 +308,14 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onNextListItem()
+	public function onNextListItem(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onListItemsEnd()
+	public function onListItemsEnd(): void
 	{
 		if ($this->blockStack->size() > 0) {
 			$this->htmlBuilder->append(self::LINE_BREAK);
@@ -325,7 +325,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockEnd()
+	public function onUnorderedListBlockEnd(): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_UNORDERED_LIST_END));
 	}
@@ -334,7 +334,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param int
 	 * @return void
 	 */
-	public function onOrderedListBlockEnd($startIndex)
+	public function onOrderedListBlockEnd(int $startIndex): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_ORDERED_LIST_END));
 	}
@@ -342,7 +342,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockBegin()
+	public function onParagraphBlockBegin(): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_PARAGRAPH_BEGIN));
 	}
@@ -350,7 +350,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockEnd()
+	public function onParagraphBlockEnd(): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_PARAGRAPH_END));
 	}
@@ -358,7 +358,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockBegin()
+	public function onQuoteBlockBegin(): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_QUOTE_BEGIN));
 	}
@@ -366,7 +366,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockEnd()
+	public function onQuoteBlockEnd(): void
 	{
 		$this->htmlBuilder
 			->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_QUOTE_END));
@@ -376,21 +376,21 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockEnd($type)
+	public function onBlockEnd(string $type): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onNextBlock()
+	public function onNextBlock(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onBlocksEnd()
+	public function onBlocksEnd(): void
 	{
 		if ($this->blockStack->size() > 0) {
 			$this->htmlBuilder->append(self::LINE_BREAK);
@@ -400,7 +400,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onContentsBegin()
+	public function onContentsBegin(): void
 	{
 	}
 
@@ -408,7 +408,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentBegin($type)
+	public function onContentBegin(string $type): void
 	{
 	}
 
@@ -416,7 +416,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $code
 	 * @return void
 	 */
-	public function onCodeContent($code)
+	public function onCodeContent(string $code): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_CODE_INLINE, $code));
 	}
@@ -425,7 +425,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentBegin($level)
+	public function onEmphasisContentBegin(int $level): void
 	{
 		$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_1_BEGIN;
 		if ($level === EmphasisLevel::LEVEL_2) {
@@ -438,7 +438,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentEnd($level)
+	public function onEmphasisContentEnd(int $level): void
 	{
 		$tagType = TagBuilderInterface::TYPE_EMPHASIS_LEVEL_1_END;
 		if ($level === EmphasisLevel::LEVEL_2) {
@@ -453,7 +453,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $alternative
 	 * @return void
 	 */
-	public function onImageContent($uri, $title = null, $alternative = null)
+	public function onImageContent(string $uri, ?string $title = null, ?string $alternative = null): void
 	{
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
@@ -472,7 +472,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param bool $hard
 	 * @return void
 	 */
-	public function onLineBreakContent($hard)
+	public function onLineBreakContent(bool $hard): void
 	{
 		if ($hard || $this->getBreakSoftBreaks()) {
 			$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_LINE_BREAK));
@@ -486,7 +486,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri, $title = null)
+	public function onLinkContentBegin(string $uri, ?string $title = null): void
 	{
 		$this->htmlBuilder->append(
 			$this->getTagBuilder()->buildTag(
@@ -505,7 +505,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri, $title = null)
+	public function onLinkContentEnd(string $uri, ?string $title = null): void
 	{
 		$this->htmlBuilder->append($this->getTagBuilder()->buildTag(TagBuilderInterface::TYPE_LINK_END));
 	}
@@ -514,7 +514,7 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $text
 	 * @return void
 	 */
-	public function onTextContent($text)
+	public function onTextContent(string $text): void
 	{
 		if ($this->getEscapeHtml()) {
 			$text = htmlentities($text);
@@ -526,28 +526,28 @@ class HtmlHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentEnd($type)
+	public function onContentEnd(string $type): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onNextContent()
+	public function onNextContent(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onContentsEnd()
+	public function onContentsEnd(): void
 	{
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getResult()
+	public function getResult(): string
 	{
 		return $this->htmlBuilder->build();
 	}
