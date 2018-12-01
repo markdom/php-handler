@@ -793,8 +793,11 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $string
 	 * @return $this
 	 */
-	private function append(string $string)
+	private function append(?string $string)
 	{
+		if ($string === null) {
+			return $this;
+		}
 		$this->output .= $string;
 		return $this;
 	}
