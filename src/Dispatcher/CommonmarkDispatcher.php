@@ -40,7 +40,7 @@ class CommonmarkDispatcher implements DispatcherInterface
 	/**
 	 * @return HtmlProcessorInterface
 	 */
-	public function getHtmlProcessor():HtmlProcessorInterface
+	public function getHtmlProcessor(): HtmlProcessorInterface
 	{
 		return $this->htmlProcessor;
 	}
@@ -58,7 +58,7 @@ class CommonmarkDispatcher implements DispatcherInterface
 	/**
 	 * @return bool
 	 */
-	public function isReusable():bool
+	public function isReusable(): bool
 	{
 		return true;
 	}

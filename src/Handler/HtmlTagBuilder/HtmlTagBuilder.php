@@ -21,8 +21,12 @@ class HtmlTagBuilder implements TagBuilderInterface
 	 * @return string
 	 * @throws HandlerException
 	 */
-	public function buildTag(string $type, ?string $value = null, ?array $attributes = array(), ?string $variant = null): string
-	{
+	public function buildTag(
+		string $type,
+		?string $value = null,
+		?array $attributes = array(),
+		?string $variant = null
+	): string {
 		switch ($type) {
 			case self::TYPE_CODE_BLOCK:
 				/* @noinspection HtmlUnknownTag */

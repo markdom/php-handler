@@ -63,7 +63,7 @@ final class DocumentProcessor implements DocumentProcessorInterface
 	 */
 	public function __construct(
 		HandlerInterface $markdomHandler,
-		HtmlProcessorInterface $htmlProcessor = null
+		?HtmlProcessorInterface $htmlProcessor = null
 	) {
 		$this->markdomHandler = $markdomHandler;
 		if (is_null($htmlProcessor)) {

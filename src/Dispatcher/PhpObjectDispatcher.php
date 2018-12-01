@@ -67,7 +67,7 @@ class PhpObjectDispatcher implements DispatcherInterface
 	/**
 	 * @return bool
 	 */
-	public function isReusable():bool
+	public function isReusable(): bool
 	{
 		return true;
 	}

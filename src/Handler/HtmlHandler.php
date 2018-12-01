@@ -17,7 +17,7 @@ use Markenwerk\StringBuilder\StringBuilder;
 class HtmlHandler implements HandlerInterface
 {
 
-	const LINE_BREAK = PHP_EOL;
+	private const LINE_BREAK = PHP_EOL;
 
 	/**
 	 * @var bool

@@ -30,7 +30,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return bool
 	 */
-	public function getHandleComments()
+	public function getHandleComments(): bool
 	{
 		return $this->handleComments;
 	}
@@ -39,7 +39,7 @@ class DebugHandler implements HandlerInterface
 	 * @param bool $handleComments
 	 * @return $this
 	 */
-	public function setHandleComments($handleComments)
+	public function setHandleComments(bool $handleComments)
 	{
 		$this->handleComments = $handleComments;
 		return $this;
@@ -48,7 +48,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDocumentBegin()
+	public function onDocumentBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 		$this->indentationLevel++;
@@ -57,7 +57,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDocumentEnd()
+	public function onDocumentEnd(): void
 	{
 		$this->indentationLevel--;
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
@@ -66,7 +66,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onBlocksBegin()
+	public function onBlocksBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 		$this->indentationLevel++;
@@ -76,7 +76,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockBegin($type)
+	public function onBlockBegin(string $type): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $type;
 		$this->indentationLevel++;
@@ -87,16 +87,16 @@ class DebugHandler implements HandlerInterface
 	 * @param string $hint
 	 * @return void
 	 */
-	public function onCodeBlock($code, $hint = null)
+	public function onCodeBlock(string $code, ?string $hint = null): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $hint . ' ~ ' . $code;
 	}
 
 	/**
-	 * @param $comment
+	 * @param string $comment
 	 * @return void
 	 */
-	public function onCommentBlock($comment)
+	public function onCommentBlock(string $comment): void
 	{
 		if (!$this->getHandleComments()) {
 			return;
@@ -107,7 +107,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDivisionBlock()
+	public function onDivisionBlock(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -116,7 +116,7 @@ class DebugHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockBegin($level)
+	public function onHeadingBlockBegin(int $level): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $level;
 	}
@@ -125,7 +125,7 @@ class DebugHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockEnd($level)
+	public function onHeadingBlockEnd(int $level): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $level;
 	}
@@ -133,7 +133,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockBegin()
+	public function onUnorderedListBlockBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -142,7 +142,7 @@ class DebugHandler implements HandlerInterface
 	 * @param int $startIndex
 	 * @return void
 	 */
-	public function onOrderedListBlockBegin($startIndex)
+	public function onOrderedListBlockBegin(int $startIndex): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $startIndex;
 	}
@@ -150,7 +150,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemsBegin()
+	public function onListItemsBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -158,7 +158,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemBegin()
+	public function onListItemBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -166,7 +166,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemEnd()
+	public function onListItemEnd(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -174,7 +174,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onNextListItem()
+	public function onNextListItem(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -182,7 +182,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemsEnd()
+	public function onListItemsEnd(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -190,7 +190,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockEnd()
+	public function onUnorderedListBlockEnd(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -199,7 +199,7 @@ class DebugHandler implements HandlerInterface
 	 * @param int
 	 * @return void
 	 */
-	public function onOrderedListBlockEnd($startIndex)
+	public function onOrderedListBlockEnd(int $startIndex): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $startIndex;
 	}
@@ -207,7 +207,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockBegin()
+	public function onParagraphBlockBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -215,7 +215,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockEnd()
+	public function onParagraphBlockEnd(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -223,7 +223,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockBegin()
+	public function onQuoteBlockBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -231,7 +231,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockEnd()
+	public function onQuoteBlockEnd(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -240,7 +240,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockEnd($type)
+	public function onBlockEnd(string $type): void
 	{
 		$this->indentationLevel--;
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $type;
@@ -249,7 +249,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onNextBlock()
+	public function onNextBlock(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -257,7 +257,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onBlocksEnd()
+	public function onBlocksEnd(): void
 	{
 		$this->indentationLevel--;
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
@@ -266,7 +266,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onContentsBegin()
+	public function onContentsBegin(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 		$this->indentationLevel++;
@@ -276,7 +276,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentBegin($type)
+	public function onContentBegin(string $type): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $type;
 		$this->indentationLevel++;
@@ -286,7 +286,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $code
 	 * @return void
 	 */
-	public function onCodeContent($code)
+	public function onCodeContent(string $code): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $code;
 	}
@@ -295,7 +295,7 @@ class DebugHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentBegin($level)
+	public function onEmphasisContentBegin(int $level): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $level;
 	}
@@ -304,7 +304,7 @@ class DebugHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentEnd($level)
+	public function onEmphasisContentEnd(int $level): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $level;
 	}
@@ -315,7 +315,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $alternative
 	 * @return void
 	 */
-	public function onImageContent($uri, $title = null, $alternative = null)
+	public function onImageContent(string $uri, ?string $title = null, ?string $alternative = null): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $uri . ' ~ ' . $title . ' ~ ' . $alternative;
 	}
@@ -324,7 +324,7 @@ class DebugHandler implements HandlerInterface
 	 * @param bool $hard
 	 * @return void
 	 */
-	public function onLineBreakContent($hard)
+	public function onLineBreakContent(bool $hard): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $hard;
 	}
@@ -334,7 +334,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri, $title = null)
+	public function onLinkContentBegin(string $uri, ?string $title = null): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $uri . ' ~ ' . $title;
 	}
@@ -344,7 +344,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri, $title = null)
+	public function onLinkContentEnd(string $uri, ?string $title = null): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $uri . ' ~ ' . $title;
 	}
@@ -353,7 +353,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $text
 	 * @return void
 	 */
-	public function onTextContent($text)
+	public function onTextContent(string $text): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $text;
 	}
@@ -362,7 +362,7 @@ class DebugHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentEnd($type)
+	public function onContentEnd(string $type): void
 	{
 		$this->indentationLevel--;
 		$this->output[] = $this->getIndentation() . __FUNCTION__ . ': ' . $type;
@@ -371,7 +371,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onNextContent()
+	public function onNextContent(): void
 	{
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
 	}
@@ -379,7 +379,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onContentsEnd()
+	public function onContentsEnd(): void
 	{
 		$this->indentationLevel--;
 		$this->output[] = $this->getIndentation() . __FUNCTION__;
@@ -388,7 +388,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return string
 	 */
-	public function getResult()
+	public function getResult(): string
 	{
 		return implode(PHP_EOL, $this->output);
 	}
@@ -396,7 +396,7 @@ class DebugHandler implements HandlerInterface
 	/**
 	 * @return string
 	 */
-	private function getIndentation()
+	private function getIndentation(): string
 	{
 		return str_pad('', $this->indentationLevel * 4, ' ', STR_PAD_LEFT);
 	}

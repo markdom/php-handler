@@ -24,6 +24,7 @@
 	},
 	"require": {
 		"php": "^7.1",
+		"ext-ctype": "*",
 		"ext-dom": "*",
 		"ext-json": "*",
 		"ext-mbstring": "*",

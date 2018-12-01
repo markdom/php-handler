@@ -42,6 +42,11 @@ interface TagBuilderInterface
 	 * @param string $variant
 	 * @return string
 	 */
-	public function buildTag(string $type, ?string $value = null, ?array $attributes = array(), ?string $variant = null): string;
+	public function buildTag(
+		string $type,
+		?string $value = null,
+		?array $attributes = array(),
+		?string $variant = null
+	): string;
 
 }

@@ -113,7 +113,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return bool
 	 */
-	public function getHandleComments()
+	public function getHandleComments(): bool
 	{
 		return $this->handleComments;
 	}
@@ -122,7 +122,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param bool $handleComments
 	 * @return $this
 	 */
-	public function setHandleComments($handleComments)
+	public function setHandleComments(bool $handleComments)
 	{
 		$this->handleComments = $handleComments;
 		return $this;
@@ -131,7 +131,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return string
 	 */
-	public function getEscapeCharacters()
+	public function getEscapeCharacters(): string
 	{
 		return $this->escapeCharacters;
 	}
@@ -140,7 +140,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $escapeCharacters
 	 * @return $this
 	 */
-	public function setEscapeCharacters($escapeCharacters)
+	public function setEscapeCharacters(string $escapeCharacters)
 	{
 		$this->escapeCharacters = $escapeCharacters;
 		return $this;
@@ -149,7 +149,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return string
 	 */
-	public function getEscapeLineStartCharacters()
+	public function getEscapeLineStartCharacters(): string
 	{
 		return $this->escapeLineStartCharacters;
 	}
@@ -158,7 +158,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $escapeCharacters
 	 * @return $this
 	 */
-	public function setEscapeLineStartCharacters($escapeCharacters)
+	public function setEscapeLineStartCharacters(string $escapeCharacters)
 	{
 		$this->escapeLineStartCharacters = $escapeCharacters;
 		return $this;
@@ -167,21 +167,21 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDocumentBegin()
+	public function onDocumentBegin(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onDocumentEnd()
+	public function onDocumentEnd(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onBlocksBegin()
+	public function onBlocksBegin(): void
 	{
 		$this->blocksAreEmpty = true;
 	}
@@ -190,7 +190,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockBegin($type)
+	public function onBlockBegin(string $type): void
 	{
 		$this->blocksAreEmpty = false;
 	}
@@ -200,7 +200,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $hint
 	 * @return void
 	 */
-	public function onCodeBlock($code, $hint = null)
+	public function onCodeBlock(string $code, ?string $hint = null): void
 	{
 		$backticksSequence = max(3, $this->longestBackticksSequence($code) + 1);
 		$backtickString = str_repeat('`', $backticksSequence);
@@ -226,7 +226,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param $comment
 	 * @return void
 	 */
-	public function onCommentBlock($comment)
+	public function onCommentBlock(string $comment): void
 	{
 		if (!$this->getHandleComments()) {
 			return;
@@ -260,7 +260,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onDivisionBlock()
+	public function onDivisionBlock(): void
 	{
 		$this
 			->startLine()
@@ -272,7 +272,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockBegin($level)
+	public function onHeadingBlockBegin(int $level): void
 	{
 		$this
 			->startLine()
@@ -290,7 +290,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onHeadingBlockEnd($level)
+	public function onHeadingBlockEnd(int $level): void
 	{
 		$this->terminateLine();
 		$this->delimiters->pop();
@@ -299,7 +299,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockBegin()
+	public function onUnorderedListBlockBegin(): void
 	{
 		$this->displaceAdjacentLists();
 		$this->listStyles->push(false);
@@ -310,7 +310,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param int $startIndex
 	 * @return void
 	 */
-	public function onOrderedListBlockBegin($startIndex)
+	public function onOrderedListBlockBegin(int $startIndex): void
 	{
 		$this->displaceAdjacentLists();
 		$this->listStyles->push(true);
@@ -320,14 +320,14 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemsBegin()
+	public function onListItemsBegin(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onListItemBegin()
+	public function onListItemBegin(): void
 	{
 		if ($this->listStyles->get()) {
 			$itemIndex = $this->listIndices->get();
@@ -347,7 +347,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onListItemEnd()
+	public function onListItemEnd(): void
 	{
 		$this->lineStarts->pop();
 	}
@@ -355,21 +355,21 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onNextListItem()
+	public function onNextListItem(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onListItemsEnd()
+	public function onListItemsEnd(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onUnorderedListBlockEnd()
+	public function onUnorderedListBlockEnd(): void
 	{
 		$this->listStyles->pop();
 		$this->listIndices->pop();
@@ -379,7 +379,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param int
 	 * @return void
 	 */
-	public function onOrderedListBlockEnd($startIndex)
+	public function onOrderedListBlockEnd(int $startIndex): void
 	{
 		$this->listStyles->pop();
 		$this->listIndices->pop();
@@ -388,7 +388,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockBegin()
+	public function onParagraphBlockBegin(): void
 	{
 		$this->startLine();
 		$this->inParagraphBlock = true;
@@ -403,7 +403,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onParagraphBlockEnd()
+	public function onParagraphBlockEnd(): void
 	{
 		$this->inParagraphBlock = false;
 		$this->delimiters->pop();
@@ -413,7 +413,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockBegin()
+	public function onQuoteBlockBegin(): void
 	{
 		$this->lineStarts->push('> ');
 	}
@@ -421,7 +421,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onQuoteBlockEnd()
+	public function onQuoteBlockEnd(): void
 	{
 		$this->lineStarts->pop();
 	}
@@ -430,7 +430,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onBlockEnd($type)
+	public function onBlockEnd(string $type): void
 	{
 		$this->lastEndedBlock = $type;
 	}
@@ -438,7 +438,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onNextBlock()
+	public function onNextBlock(): void
 	{
 		$this
 			->startLine()
@@ -448,7 +448,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onBlocksEnd()
+	public function onBlocksEnd(): void
 	{
 		if ($this->blocksAreEmpty) {
 			$this
@@ -461,7 +461,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onContentsBegin()
+	public function onContentsBegin(): void
 	{
 	}
 
@@ -469,7 +469,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentBegin($type)
+	public function onContentBegin(string $type): void
 	{
 	}
 
@@ -477,7 +477,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $code
 	 * @return void
 	 */
-	public function onCodeContent($code)
+	public function onCodeContent(string $code): void
 	{
 		$builder = new StringBuilder();
 		$this
@@ -503,7 +503,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentBegin($level)
+	public function onEmphasisContentBegin(int $level): void
 	{
 		switch ($level) {
 			case EmphasisLevel::LEVEL_1:
@@ -519,7 +519,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param int $level
 	 * @return void
 	 */
-	public function onEmphasisContentEnd($level)
+	public function onEmphasisContentEnd(int $level): void
 	{
 		$delimiter = $this->delimiters->pop();
 		if (!$delimiter->isEmpty()) {
@@ -533,7 +533,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $alternative
 	 * @return void
 	 */
-	public function onImageContent($uri, $title = null, $alternative = null)
+	public function onImageContent(string $uri, ?string $title = null, ?string $alternative = null): void
 	{
 		$this->append('![');
 		if (!is_null($alternative)) {
@@ -557,7 +557,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param bool $hard
 	 * @return void
 	 */
-	public function onLineBreakContent($hard)
+	public function onLineBreakContent(bool $hard): void
 	{
 		if (!$this->inParagraphBlock) {
 			$this->pendingSpace = $this->lineStarted;
@@ -579,7 +579,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin($uri, $title = null)
+	public function onLinkContentBegin(string $uri, ?string $title = null): void
 	{
 		$this->delimiters->push(new HandlerDelimiter('['));
 	}
@@ -589,7 +589,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentEnd($uri, $title = null)
+	public function onLinkContentEnd(string $uri, ?string $title = null): void
 	{
 		$title = (!is_null($title)) ? ' "' . $title . '"' : '';
 		$delimiter = $this->delimiters->get();
@@ -604,7 +604,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $text
 	 * @return void
 	 */
-	public function onTextContent($text)
+	public function onTextContent(string $text): void
 	{
 		$textSize = mb_strlen($text);
 		$builder = new StringBuilder();
@@ -647,21 +647,21 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $type
 	 * @return void
 	 */
-	public function onContentEnd($type)
+	public function onContentEnd(string $type): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onNextContent()
+	public function onNextContent(): void
 	{
 	}
 
 	/**
 	 * @return void
 	 */
-	public function onContentsEnd()
+	public function onContentsEnd(): void
 	{
 	}
 
@@ -669,7 +669,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $html
 	 * @return void
 	 */
-	public function onHtmlBlockBegin($html)
+	public function onHtmlBlockBegin(string $html): void
 	{
 		$this
 			->startLine()
@@ -680,7 +680,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	public function onHtmlBlockEnd()
+	public function onHtmlBlockEnd(): void
 	{
 	}
 
@@ -688,7 +688,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $html
 	 * @return void
 	 */
-	public function onHtmlContent($html)
+	public function onHtmlContent(string $html): void
 	{
 		$this->append($html);
 	}
@@ -696,7 +696,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return string
 	 */
-	public function getResult()
+	public function getResult(): string
 	{
 		return $this->output;
 	}
@@ -704,7 +704,7 @@ class CommonmarkHandler implements HandlerInterface
 	/**
 	 * @return void
 	 */
-	private function displaceAdjacentLists()
+	private function displaceAdjacentLists(): void
 	{
 		if (
 			$this->lastEndedBlock === BlockType::TYPE_UNORDERED_LIST
@@ -720,7 +720,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $code
 	 * @return int
 	 */
-	private function longestBackticksSequence($code)
+	private function longestBackticksSequence(string $code): int
 	{
 		$maxLength = 0;
 		$currentLength = 0;
@@ -740,7 +740,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param int $backticksSequence
 	 * @return $this
 	 */
-	private function appendCode($code, $backticksSequence)
+	private function appendCode(string $code, int $backticksSequence)
 	{
 		$backtickString = str_repeat('`', $backticksSequence);
 		$this->append($backtickString);
@@ -793,7 +793,7 @@ class CommonmarkHandler implements HandlerInterface
 	 * @param string $string
 	 * @return $this
 	 */
-	private function append($string)
+	private function append(string $string)
 	{
 		$this->output .= $string;
 		return $this;
