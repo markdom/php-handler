@@ -42,7 +42,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @var StringBuilder
 	 */
-	private $htmlBuilder;
+	protected $htmlBuilder;
 
 	/**
 	 * @var Stack
@@ -131,14 +131,6 @@ class HtmlHandler implements HandlerInterface
 	{
 		$this->breakSoftBreaks = $breakSoftBreaks;
 		return $this;
-	}
-
-	/**
-	 * @return StringBuilder
-	 */
-	public function getHtmlBuilder(): StringBuilder
-	{
-		return $this->htmlBuilder;
 	}
 
 	/**
