@@ -541,7 +541,7 @@ class HtmlHandler implements HandlerInterface
 	 */
 	public function getResult(): string
 	{
-		return $this->htmlBuilder->build();
+		return (string)$this->htmlBuilder->build();
 	}
 
 }
