@@ -28,7 +28,7 @@
 		"ext-dom": "*",
 		"ext-json": "*",
 		"ext-mbstring": "*",
-		"markdom/handler-interface": "^1.1.0",
+		"markdom/handler-interface": "^1.1",
 		"markenwerk/stack-util": "~1.0",
 		"markenwerk/string-builder": "^1.0.4",
 		"mustangostang/spyc": ">=0.6.1",
