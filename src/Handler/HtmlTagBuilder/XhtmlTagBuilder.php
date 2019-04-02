@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Markdom\Handler\HtmlTagBuilder;
 
 use Markdom\Handler\Exception\HandlerException;
@@ -16,7 +18,7 @@ class XhtmlTagBuilder extends HtmlTagBuilder
 	 * @param string $type
 	 * @param string $value
 	 * @param array $attributes
-	 * @param string $variant
+	 * @param mixed $variant
 	 * @return string
 	 * @throws HandlerException
 	 */
@@ -24,7 +26,7 @@ class XhtmlTagBuilder extends HtmlTagBuilder
 		string $type,
 		?string $value = null,
 		?array $attributes = array(),
-		?string $variant = null
+		$variant = null
 	): string {
 		switch ($type) {
 			case self::TYPE_DIVISION:

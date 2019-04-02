@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Markdom\Handler\HtmlTagBuilder;
 
 use Markdom\Common\HeadingLevel;
@@ -17,7 +19,7 @@ class HtmlTagBuilder implements TagBuilderInterface
 	 * @param string $type
 	 * @param string $value
 	 * @param array $attributes
-	 * @param string $variant
+	 * @param mixed $variant
 	 * @return string
 	 * @throws HandlerException
 	 */
@@ -25,7 +27,7 @@ class HtmlTagBuilder implements TagBuilderInterface
 		string $type,
 		?string $value = null,
 		?array $attributes = array(),
-		?string $variant = null
+		$variant = null
 	): string {
 		switch ($type) {
 			case self::TYPE_CODE_BLOCK:

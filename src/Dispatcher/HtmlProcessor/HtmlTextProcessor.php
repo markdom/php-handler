@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Markdom\Dispatcher\HtmlProcessor;
 
 use League\CommonMark\Block\Element\HtmlBlock;

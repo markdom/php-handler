@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Markdom\Dispatcher;
 
 use Markdom\Dispatcher\EventDispatcher\SimpleMarkdomEventDispatcher;
@@ -144,6 +146,9 @@ class XmlDispatcher implements DispatcherInterface
 	{
 		for ($i = 0, $n = $listItems->length; $i < $n; $i++) {
 			$node = $listItems->item($i);
+			if ($node === null) {
+				continue;
+			}
 			$this->eventDispatcher->onListItemBegin();
 			$this->processBlocks($node->childNodes);
 			$this->eventDispatcher->onListItemEnd();

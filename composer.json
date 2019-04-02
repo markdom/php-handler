@@ -32,6 +32,6 @@
 		"markenwerk/stack-util": "~1.0",
 		"markenwerk/string-builder": "^1.0.4",
 		"mustangostang/spyc": ">=0.6.1",
-		"league/commonmark": "^0.13"
+		"league/commonmark": "^0.18"
 	}
 }

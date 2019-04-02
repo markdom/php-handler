@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Markdom\Handler\HtmlTagBuilder;
 
 /**
@@ -39,14 +41,14 @@ interface TagBuilderInterface
 	 * @param string $type
 	 * @param string $value
 	 * @param array $attributes
-	 * @param string $variant
+	 * @param mixed $variant
 	 * @return string
 	 */
 	public function buildTag(
 		string $type,
 		?string $value = null,
 		?array $attributes = array(),
-		?string $variant = null
+		$variant = null
 	): string;
 
 }

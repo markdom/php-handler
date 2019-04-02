@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Markdom\Dispatcher\EventDispatcher;
 
 use Markdom\Common\BlockType;
@@ -319,7 +321,7 @@ final class SimpleMarkdomEventDispatcher
 	 * @param string $title
 	 * @return void
 	 */
-	public function onLinkContentBegin(string $uri, string $title): void
+	public function onLinkContentBegin(string $uri, ?string $title = null): void
 	{
 		$this->onContentBegin(ContentType::TYPE_LINK);
 		$this->markdomHandler->onLinkContentBegin($uri, $title);

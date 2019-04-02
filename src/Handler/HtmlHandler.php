@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Markdom\Handler;
 
 use Markdom\Common\EmphasisLevel;
@@ -32,7 +34,7 @@ class HtmlHandler implements HandlerInterface
 	/**
 	 * @var bool
 	 */
-	private $escapeHtml = false;
+	private $escapeHtml = true;
 
 	/**
 	 * @var bool
