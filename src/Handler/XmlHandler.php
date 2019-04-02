@@ -141,7 +141,7 @@ class XmlHandler implements HandlerInterface
 			$codeNode->appendChild($this->createTextNode($code));
 		}
 		$hintAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_CODE_HINT);
-		$hintAttribute->appendChild($this->document->createTextNode($hint));
+		$hintAttribute->appendChild($this->document->createTextNode((string)$hint));
 		$codeNode->appendChild($hintAttribute);
 		/* @var \DOMElement $parent */
 		$parent = $this->blockParents->get();
@@ -387,7 +387,7 @@ class XmlHandler implements HandlerInterface
 	{
 		$emphasisNode = $this->document->createElement(KeyNameTranslator::TYPE_EMPHASIS);
 		$levelAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_EMPHASIS_LEVEL);
-		$levelAttribute->appendChild($this->document->createTextNode($level));
+		$levelAttribute->appendChild($this->document->createTextNode((string)$level));
 		$emphasisNode->appendChild($levelAttribute);
 		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
@@ -455,7 +455,7 @@ class XmlHandler implements HandlerInterface
 		$uriAttribute->appendChild($this->document->createTextNode($uri));
 		$linkNode->appendChild($uriAttribute);
 		$titleAttribute = $this->document->createAttribute(KeyNameTranslator::ATTRIBUTE_LINK_TITLE);
-		$titleAttribute->appendChild($this->document->createTextNode($title));
+		$titleAttribute->appendChild($this->document->createTextNode((string)$title));
 		$linkNode->appendChild($titleAttribute);
 		/* @var \DOMElement $parent */
 		$parent = $this->contentParents->get();
