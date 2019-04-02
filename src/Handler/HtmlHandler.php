@@ -511,7 +511,7 @@ class HtmlHandler implements HandlerInterface
 	public function onTextContent(string $text): void
 	{
 		if ($this->getEscapeHtml()) {
-			$text = htmlentities($text);
+			$text = htmlspecialchars((string)$text, ENT_COMPAT);
 		}
 		$this->htmlBuilder->append($text);
 	}
