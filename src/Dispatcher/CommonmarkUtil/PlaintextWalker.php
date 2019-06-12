@@ -61,7 +61,7 @@ final class PlaintextWalker
 	/**
 	 * @return string
 	 */
-	public function getPlaintext(): string
+	public function getPlaintext(): ?string
 	{
 		return $this->plaintextBuilder->build();
 	}
