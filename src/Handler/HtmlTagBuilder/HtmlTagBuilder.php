@@ -127,6 +127,7 @@ class HtmlTagBuilder implements TagBuilderInterface
 			if (empty($value)) {
 				continue;
 			}
+			$value = htmlspecialchars($value, ENT_COMPAT | ENT_SUBSTITUTE);
 			$attributeParts[] = mb_strtolower($key) . '="' . $value . '"';
 		}
 		unset($value);
