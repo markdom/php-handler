@@ -2,7 +2,6 @@
 
 namespace Markdom\Test;
 
-use Markdom\Dispatcher\CommonmarkDispatcher;
 use Markdom\Dispatcher\JsonDispatcher;
 use Markdom\Handler\CommonmarkHandler;
 
