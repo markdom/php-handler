@@ -29,8 +29,8 @@
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"markdom/handler-interface": "^1.1",
-		"markenwerk/stack-util": "~1.0",
-		"markenwerk/string-builder": "^1.0.4",
+		"chroma-x/stack-util": "~1.0",
+		"chroma-x/string-builder": "^1.0.4",
 		"mustangostang/spyc": ">=0.6.1",
 		"league/commonmark": "^0.18"
 	}

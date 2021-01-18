@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Markdom\Dispatcher\CommonmarkUtil;
 
+use ChromaX\StringBuilder\StringBuilder;
 use League\CommonMark\Inline\Element\Code;
 use League\CommonMark\Inline\Element\Newline;
 use League\CommonMark\Inline\Element\Text;
 use League\CommonMark\Node\Node;
-use Markenwerk\StringBuilder\StringBuilder;
 
 /**
  * Class PlaintextWalker

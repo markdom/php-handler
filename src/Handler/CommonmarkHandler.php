@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Markdom\Handler;
 
+use ChromaX\StackUtil\Stack;
+use ChromaX\StringBuilder\StringBuilder;
 use Markdom\Common\BlockType;
 use Markdom\Common\EmphasisLevel;
 use Markdom\Handler\CommonmarkUtil\HandlerDelimiter;
 use Markdom\HandlerInterface\HandlerInterface;
-use Markenwerk\StackUtil\Stack;
-use Markenwerk\StringBuilder\StringBuilder;
 
 /**
  * Class CommonmarkHandler

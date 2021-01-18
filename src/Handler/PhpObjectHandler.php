@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Markdom\Handler;
 
+use ChromaX\StackUtil\Stack;
 use Markdom\Handler\TypeNameTranslator\KeyNameTranslator;
 use Markdom\HandlerInterface\HandlerInterface;
-use Markenwerk\StackUtil\Stack;
 
 /**
  * Class PhpObjectHandler

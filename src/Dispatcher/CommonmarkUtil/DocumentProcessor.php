@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Markdom\Dispatcher\CommonmarkUtil;
 
+use ChromaX\StackUtil\Stack;
 use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocumentProcessorInterface;
 use Markdom\Dispatcher\Exception\DispatcherException;
 use Markdom\Dispatcher\HtmlProcessor\HtmlProcessorInterface;
 use Markdom\Dispatcher\HtmlProcessor\HtmlTextProcessor;
 use Markdom\HandlerInterface\HandlerInterface;
-use Markenwerk\StackUtil\Stack;
 
 /**
  * Class CommonmarkDocumentProcessor

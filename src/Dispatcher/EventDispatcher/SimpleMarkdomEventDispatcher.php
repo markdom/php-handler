@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Markdom\Dispatcher\EventDispatcher;
 
+use ChromaX\StackUtil\Stack;
 use Markdom\Common\BlockType;
 use Markdom\Common\ContentType;
 use Markdom\HandlerInterface\HandlerInterface;
-use Markenwerk\StackUtil\Stack;
 
 /**
  * Class SimpleMarkdomEventDispatcher
